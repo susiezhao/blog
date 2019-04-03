@@ -2,10 +2,10 @@ module.exports = {
   siteMetadata: {
     title: `Blog`,
     author: `susiezhao`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: `A blog to remember everything.`,
     siteUrl: `https://github.com/susiezhao/blog`,
     social: {
-      'twitter': 'nora_susie@qq.com'
+      'mail': 'nora_susie@qq.com'
     }
   },
   pathPrefix: '/blog',
@@ -76,4 +76,9 @@ module.exports = {
       },
     },
   ],
+  // 配置代理, proxy只在development环境(gatsby develop)起作用
+  // proxy: {
+    // prefix: '/api',
+    // url: 'http://dev-mysite.com'
+  // }
 }

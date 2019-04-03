@@ -64,3 +64,19 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     })
   }
 }
+
+exports.onCreateWebpackConfig = ({
+  stage,  // develop, develop-html, build-javascript, build-html
+  rules,
+  loaders,
+  plugins,
+  actions,
+  getConfig,   // 获取webpack默认配置函数
+}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      // 配置webpack去哪些目录下寻找第三方模块。默认是去node_modules目录下寻找
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    }
+  })
+}
