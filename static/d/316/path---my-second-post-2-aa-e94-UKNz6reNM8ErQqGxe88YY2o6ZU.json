@@ -1,0 +1,1 @@
+{"errors":[{"message":"Cannot query field \"description\" on type \"MarkdownRemarkFrontmatter\".","locations":[{"line":17,"column":7}]}],"pageContext":{"isCreatedByStatefulCreatePages":false,"slug":"/my-second-post/","previous":{"fields":{"slug":"/hello-world/"},"frontmatter":{"title":"Hello World"}},"next":null}}
