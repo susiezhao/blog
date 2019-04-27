@@ -1,0 +1,1 @@
+{"data":{"site":{"siteMetadata":{"title":"Blog"}},"allMarkdownRemark":{"edges":[{"node":{"excerpt":"…","fields":{"slug":"/data-binding/proxy_Object.definedProperty/"},"frontmatter":{"date":"April 06, 2019","title":"Proxy VS Object.defineProperty","description":"基于 Proxy 和 Object.defineProperty 两种方式的数据劫持原理分析."}}}]}},"pageContext":{"isCreatedByStatefulCreatePages":true}}
