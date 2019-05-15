@@ -4,9 +4,9 @@ date: "2019-04-27T22:12:03.284Z"
 description: JavaScript 基于原型系统的面向对象设计
 ---
 
+## 原型与原型链
 JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。
 
-## 原型与原型链
 ### 构造函数、原型对象及实例的关系
 在 JavaScript 中所有的函数都有一个不可枚举的 `prototype` 的属性，该属性是一个指针，指向一个被称为原型的对象（即原型）。原型对象有一个默认不可枚举的 `constructor` 属性，其也是一个指针，默认指向与原型对象关联的函数。例如：  `function Foo() {}` 的原型对象是 `Foo.prototype`，则有 `Foo.proptotype.constructor === Foo ` 成立。  
 
