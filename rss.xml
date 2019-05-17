@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[A blog to remember everything.]]></description><link>https://github.com/susiezhao/blog</link><generator>RSS for Node</generator><lastBuildDate>Fri, 17 May 2019 12:25:55 GMT</lastBuildDate><item><title><![CDATA[Grafana App 插件开发]]></title><description><![CDATA[Tencent Cloud Monitor App Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb…]]></description><link>https://github.com/susiezhao/blog/grafana/app_develop/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/grafana/app_develop/</guid><pubDate>Wed, 15 May 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Tencent Cloud Monitor App&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[A blog to remember everything.]]></description><link>https://github.com/susiezhao/blog</link><generator>RSS for Node</generator><lastBuildDate>Fri, 17 May 2019 12:42:34 GMT</lastBuildDate><item><title><![CDATA[基于腾讯云云监控 API 的 Grafana App 插件开发]]></title><description><![CDATA[Tencent Cloud Monitor App Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb…]]></description><link>https://github.com/susiezhao/blog/grafana/app_develop/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/grafana/app_develop/</guid><pubDate>Wed, 15 May 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Tencent Cloud Monitor App&lt;/h1&gt;
 &lt;p&gt;Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb 等众多的数据源，并以功能强大的界面编辑器著称，允许您对指标进行查询、可视化展示、设置告警等操作，以及自定义配置仪表盘。 &lt;/p&gt;
 &lt;p&gt;Grafana 已经拥有一个强大的贡献者和插件开发者社区。开发者社区提供了三种类型的插件： &lt;/p&gt;
 &lt;ul&gt;
@@ -173,7 +173,7 @@ App Plugin 中配置 &lt;code&gt;plugion.json&lt;/code&gt;：&lt;/p&gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;Tencent Cloud Monitor APP 结构图&quot;
+        alt=&quot;Tencent Cloud Monitor App 结构图&quot;
         title=&quot;&quot;
         src=&quot;/blog/static/b66a38b49c8271401f463325d631118c/b9e4f/grafana_app.png&quot;
         srcset=&quot;/blog/static/b66a38b49c8271401f463325d631118c/cf440/grafana_app.png 148w,
@@ -533,7 +533,12 @@ App Plugin 中配置 &lt;code&gt;plugion.json&lt;/code&gt;：&lt;/p&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;结束&lt;/h2&gt;
 &lt;p&gt;Tencent Cloud Monitor App 已经在 github.com 上开源了，欢迎大家多提 issues，顺便给我们 Star 鼓励一下。&lt;br&gt;
-项目地址：TencentCloud/tencentcloud-monitor-grafana-app (&lt;a href=&quot;https://github.com/TencentCloud/tencentcloud-monitor-grafana-app&quot;&gt;https://github.com/TencentCloud/tencentcloud-monitor-grafana-app&lt;/a&gt;)&lt;/p&gt;</content:encoded></item><item><title><![CDATA[JavaScript 基于原型的面向对象设计]]></title><description><![CDATA[原型与原型链 JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。 构造函数、原型对象及实例的关系 在 JavaScript…]]></description><link>https://github.com/susiezhao/blog/javascript/object_oriented/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/javascript/object_oriented/</guid><pubDate>Sat, 27 Apr 2019 22:12:03 GMT</pubDate><content:encoded>&lt;h2&gt;原型与原型链&lt;/h2&gt;
+项目地址：TencentCloud/tencentcloud-monitor-grafana-app (&lt;a href=&quot;https://github.com/TencentCloud/tencentcloud-monitor-grafana-app&quot;&gt;https://github.com/TencentCloud/tencentcloud-monitor-grafana-app&lt;/a&gt;)  &lt;/p&gt;
+&lt;p&gt;项目代码开发成员：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;susiezhao(&lt;a href=&quot;https://github.com/susiezhao&quot;&gt;https://github.com/susiezhao&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;taoran34(&lt;a href=&quot;https://github.com/taoran34&quot;&gt;https://github.com/taoran34&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[JavaScript 基于原型的面向对象设计]]></title><description><![CDATA[原型与原型链 JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。 构造函数、原型对象及实例的关系 在 JavaScript…]]></description><link>https://github.com/susiezhao/blog/javascript/object_oriented/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/javascript/object_oriented/</guid><pubDate>Sat, 27 Apr 2019 22:12:03 GMT</pubDate><content:encoded>&lt;h2&gt;原型与原型链&lt;/h2&gt;
 &lt;p&gt;JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。&lt;/p&gt;
 &lt;h3&gt;构造函数、原型对象及实例的关系&lt;/h3&gt;
 &lt;p&gt;在 JavaScript 中所有的函数都有一个不可枚举的 &lt;code&gt;prototype&lt;/code&gt; 的属性，该属性是一个指针，指向一个被称为原型的对象（即原型）。原型对象有一个默认不可枚举的 &lt;code&gt;constructor&lt;/code&gt; 属性，其也是一个指针，默认指向与原型对象关联的函数。例如：  &lt;code&gt;function Foo() {}&lt;/code&gt; 的原型对象是 &lt;code&gt;Foo.prototype&lt;/code&gt;，则有 &lt;code&gt;Foo.proptotype.constructor === Foo&lt;/code&gt; 成立。  &lt;/p&gt;
