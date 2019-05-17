@@ -1,7 +1,7 @@
 ---
-title: 基于腾讯云云监控 API 的 Grafana App 插件开发
+title: 基于腾讯云监控 API 的 Grafana App 插件开发
 date: "2019-05-17"
-description: 基于腾讯云云监控 API 的 Grafana App 插件开发
+description: 基于腾讯云监控 API 的 Grafana App 插件开发
 ---
 
 # Tencent Cloud Monitor App 
