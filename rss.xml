@@ -1,5 +1,540 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[A blog to remember everything.]]></description><link>https://github.com/susiezhao/blog</link><generator>RSS for Node</generator><lastBuildDate>Sat, 27 Apr 2019 08:19:15 GMT</lastBuildDate><item><title><![CDATA[JavaScript 基于原型的面向对象设计]]></title><description><![CDATA[JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。 原型与原型链 构造函数、原型对象及实例的关系 在 JavaScript…]]></description><link>https://github.com/susiezhao/blog/javascript/object_oriented/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/javascript/object_oriented/</guid><pubDate>Sat, 27 Apr 2019 22:12:03 GMT</pubDate><content:encoded>&lt;p&gt;JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。&lt;/p&gt;
-&lt;h2&gt;原型与原型链&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[A blog to remember everything.]]></description><link>https://github.com/susiezhao/blog</link><generator>RSS for Node</generator><lastBuildDate>Fri, 17 May 2019 12:25:55 GMT</lastBuildDate><item><title><![CDATA[Grafana App 插件开发]]></title><description><![CDATA[Tencent Cloud Monitor App Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb…]]></description><link>https://github.com/susiezhao/blog/grafana/app_develop/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/grafana/app_develop/</guid><pubDate>Wed, 15 May 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Tencent Cloud Monitor App&lt;/h1&gt;
+&lt;p&gt;Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb 等众多的数据源，并以功能强大的界面编辑器著称，允许您对指标进行查询、可视化展示、设置告警等操作，以及自定义配置仪表盘。 &lt;/p&gt;
+&lt;p&gt;Grafana 已经拥有一个强大的贡献者和插件开发者社区。开发者社区提供了三种类型的插件： &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Panel Plugin: 针对图形展示的面板插件；&lt;/li&gt;
+&lt;li&gt;Datasource Plugin: 针对数据源的插件；&lt;/li&gt;
+&lt;li&gt;App Plugin: 针对完整应用的插件，通常由 Panel Plugin，Datasource Plugin 以及 Dashboards 模板组成；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Tencent Cloud Monitor App 的目录结构&lt;/h2&gt;
+&lt;p&gt;本文主要介绍的是 App Plugin 的开发过程以及相关的代码组织。基于腾讯云云监控 API 的 Tencent Cloud Monitor App 插件(&lt;a href=&quot;https://github.com/TencentCloud/tencentcloud-monitor-grafana-app&quot;&gt;TencentCloud/tencentcloud-monitor-grafana-app&lt;/a&gt;)，主要由两部分组成： Datasource Plugin 和 Dashboards 模板组成，代码的目录结构如下：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;.
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+├── dist                                        // 文件夹，文件夹 src 打包后的代码
+├── package.json
+├── src
+│   ├── components
+│   │   ├── config.html
+│   │   └── config.ts
+│   ├── dashboards                              // Dashboards 典型模板存放
+│   │   ├── example_cdb_dashboard.json
+│   │   └── example_cvm_dashboard.json
+│   ├── datasource                              // Datasource Plguin 代码
+│   │   ├── __mocks__
+│   │   │   └── core_module.ts
+│   │   ├── common
+│   │   │   ├── constants.ts
+│   │   │   └── sign.ts
+│   │   ├── components                          // 自定义的 Angular 组件
+│   │   │   ├── custom_select_dropdown.ts
+│   │   │   └── multi_condition.ts
+│   │   ├── css
+│   │   │   └── query_editor.css
+│   │   ├── config.ctrl.ts                       // ConfigCtrl 模块
+│   │   ├── datasource.ts                        // Datasource 模块
+│   │   ├── query.ctrl.ts                        // QueryCtrl 模块
+│   │   ├── img
+│   │   │   └── tencent-cloud.svg
+│   │   ├── partials                             // Datasource Plugin 中的 html 页面
+│   │   │   ├── config.html                      // config.ctrl.ts 对应的 html
+│   │   │   ├── query.editor.html                // query.ctrl.ts 对应的 html
+│   │   ├── module.ts                            // Datasource Plguin 的 module.ts
+│   │   ├── plugin.json                          // Datasource Plguin 的 module.ts
+│   │   ├── specs                                // 测试用例文件夹
+│   │   │   ├── tc_monitor_cdb_datasource.test.ts
+│   │   │   └── tc_monitor_cvm_datasource.test.ts
+│   │   └── tc_monitor                           // 云监控相关的产品
+│   │       ├── cdb
+│   │       │   ├── datasource.ts
+│   │       │   ├── query.ts
+│   │       │   └── query_def.ts
+│   │       ├── cvm
+│   │       │   ├── datasource.ts
+│   │       │   ├── query.ts
+│   │       │   └── query_def.ts
+│   │       └── index.ts
+│   ├── image                                    // 文件夹，存放README.md 中图片
+│   ├── img
+│   │   └── tencent-cloud.svg
+│   ├── module.ts                                // App Plguin 的 module.ts
+│   └── plugin.json                              // App Plugin 的 plugion.json
+├── jest.config.js                               // jest 框架的配置信息
+├── tsconfig.jest.json
+├── tsconfig.json
+├── tslint.json
+├── webpack.config.analyze.js
+├── webpack.config.js
+└── webpack.config.prod.js&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在每个 Plugin 开发中存在两个重要的配置文件： &lt;strong&gt;plugin.json&lt;/strong&gt; 和 &lt;strong&gt;module.ts&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3&gt;plugin.json&lt;/h3&gt;
+&lt;p&gt; &lt;code&gt;plugin.json(Required)&lt;/code&gt;: 用于描述插件的相关信息。在 Grafana 服务启动时会扫描所有的插件文件夹并挂载每个插件的 dist 目录，并查找 &lt;code&gt;plugin.json&lt;/code&gt; 文件，根据文件的内容完成插件的自动注册。  &lt;/p&gt;
+&lt;p&gt;在 Tencent Cloud Monitor App 中存在两种类型的 Plugin, 其配置文件如下：
+App Plugin 中配置 &lt;code&gt;plugion.json&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;app&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                                          &lt;span class=&quot;token comment&quot;&gt;// 插件的类型： panel | app | datasource&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Tencent Cloud Monitor&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                        &lt;span class=&quot;token comment&quot;&gt;// 插件名称&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;tencentcloud-monitor-app&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                       &lt;span class=&quot;token comment&quot;&gt;// 插件ID, 必须唯一&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;info&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Tencent Cloud Monitor App for Grafana&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Tencent Cloud&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;keywords&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&quot;tencentcloud&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&quot;tencentcloudmonitor&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&quot;grafana&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token string&quot;&gt;&quot;plugins&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;logos&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;small&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;img/tencent-cloud.svg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;large&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;img/tencent-cloud.svg&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;updated&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;2019-04-10&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;includes&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;                                            &lt;span class=&quot;token comment&quot;&gt;// App Plugin 中包含的 Datasource Plugin 和 Dashboards 模板信息&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;dashboard&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;【实例】CDB 单机监控&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;path&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;dashboards/example_cdb_dashboard.json&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;dashboard&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;【实例】CVM 单机监控&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;path&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;dashboards/example_cvm_dashboard.json&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;datasource&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Tencent Cloud Monitor Datasource&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;dependencies&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;grafanaVersion&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;6.0&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;plugins&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Datasource Plugin 中配置 &lt;code&gt;plugin.json&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;datasource&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Tencent Cloud Monitor Datasource&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;tencentcloud-monitor-datasource&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;metrics&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                           &lt;span class=&quot;token comment&quot;&gt;// Datasource plugin 特有的属性，是否在 panel 中支持 metrics&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;annotations&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                       &lt;span class=&quot;token comment&quot;&gt;// Datasource plugin 特有的属性，是否在 dashboard 中支持 annotations 查询&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;queryOptions&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;maxDataPoints&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;routes&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;info&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Tencent Cloud&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;logos&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;small&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;img/tencent-cloud.svg&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token property&quot;&gt;&quot;large&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;img/tencent-cloud.svg&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;特别注意&lt;/strong&gt; Datasource Plugin 的 &lt;code&gt;plugin.json&lt;/code&gt; 配置中必须存在 &lt;strong&gt;metric&lt;/strong&gt; 和 &lt;strong&gt;annotations&lt;/strong&gt;，且其中至少有一个属性的值为 &lt;code&gt;true&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;module.ts&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;module.ts(Required)&lt;/code&gt;： Plugin 入口文件，决定了 Plugin 的具体实现的。根据插件的类型不同其内容也有所差异。 &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;/* App Plugin 的 module.ts 需要导出1个模块 */&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  ConfigCtrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;/* Datasource Plugin 的 module.ts 通常需要导出5个模块 */&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  Datasource&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                 &lt;span class=&quot;token comment&quot;&gt;// Required&lt;/span&gt;
+  ConfigCtrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                 &lt;span class=&quot;token comment&quot;&gt;// Required&lt;/span&gt;
+  QueryCtrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                  &lt;span class=&quot;token comment&quot;&gt;// Required&lt;/span&gt;
+  AnnotationsQueryCtrl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  QueryOptionsCtrl
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Tencent Cloud Monitor App 开发实践&lt;/h2&gt;
+&lt;p&gt;基于腾讯云云监控 API —— Tencent Cloud Monitor App 完整结构图如下所示：&lt;br&gt;
+&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/b66a38b49c8271401f463325d631118c/87727/grafana_app.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 47.408343868520866%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAACWElEQVQozyWS20uTYRzH3yA8bG5O9+6dzsPm3NLK6LYLiTKhoJwX1qUVFLmpIBjaf5BuopBpYCDNPHQneTWdh7oNQS/GEr1JBUU8gXjWbZ+e9/ELP56b9/k83+/v+yoLsb9Mzfzm19wcs7NzRCIRxsfHiUajHB8fc3p6ytbWFpubm5ycnJBKJVmIxZmIzDAdnWJqcpKfExOMjAwzPz+P8ibQgpqr4nbkYzLnkJGRiaIoOJ0utre3WV1dZXl5mY2NDQ4ODtDlb24hzWihxG5DyzKQlpYu7wT8TSidvUFePXvC0+rHPHhYxaOqaior71Nf/5KjoyP29vbY3d3l4uJCutXV+6kXX00Nz+teiLOWWp8PX91rhr+NofxZXGRoaIwfo6OEh74TDocZHByUoztKJpPs7++zs7PD+fm5BOqr6e7uYWDgK/39X+jr6ycUCjI9M43ysSOE0aKJiCXYbHYsllwZW1VtxONxGXd9fZ21tTU5yWSCt+/8XLuegclkJj09E4Mh6ypyQEQOdgZRrSpOVwn5+QUUFBRht2l4vGXEYjGWlpbk/vToh4eH0mGgsRmL1Y7b7RFG3Hg8N8jOzqGtrV0AQ11YrRpFRU40zU6uKEh3WVrqZWVlRZTyT7as7/Ds7EwCGxr8GI0mystvi7uqNGEwGGltfS9K6QhiNlnIs+swm4iqSWBxsUvuTVcqlSKRSEjoFTCAwWjGK1Lk5TmEUy/ZZssVsOtzD+Vlxdy7WUGhgDjFOByF4vVb8rfRdXl5KcvRT12NjU3y0Yo7d+W3LpcbswC2tX/gP9KBvaMwpvspAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Tencent Cloud Monitor APP 结构图&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/b66a38b49c8271401f463325d631118c/b9e4f/grafana_app.png&quot;
+        srcset=&quot;/blog/static/b66a38b49c8271401f463325d631118c/cf440/grafana_app.png 148w,
+/blog/static/b66a38b49c8271401f463325d631118c/d2d38/grafana_app.png 295w,
+/blog/static/b66a38b49c8271401f463325d631118c/b9e4f/grafana_app.png 590w,
+/blog/static/b66a38b49c8271401f463325d631118c/f9b6a/grafana_app.png 885w,
+/blog/static/b66a38b49c8271401f463325d631118c/2d849/grafana_app.png 1180w,
+/blog/static/b66a38b49c8271401f463325d631118c/bbefa/grafana_app.png 1770w,
+/blog/static/b66a38b49c8271401f463325d631118c/87727/grafana_app.png 3164w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;在整个应用开发中最为重要的是 Datasource Plugin 模块的开发，下面我们以该模块为例进行详细介绍。&lt;/p&gt;
+&lt;h3&gt;Datasource Plugin 的开发&lt;/h3&gt;
+&lt;p&gt;Datasource Plugin 中有3个必须文件：&lt;code&gt;Datasource&lt;/code&gt;、 &lt;code&gt;QueryCtrl&lt;/code&gt; 和 &lt;code&gt;ConfigCtrl&lt;/code&gt;；&lt;br&gt;
+&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/dd1cd/datasource.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 34.306569343065696%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABEElEQVQoz52Ry1LCQBBF8///5AItN2oVEhF5JBADeZFkQgbzmMBwTKLsiAu76tZdTHfXndPG5XLhlv6q81mjtUYpRV0rmqahqut+zhga2gQ5H07CciuYrveYVsibHeGnJZO5y8t0zZNp8fD8zt3jGHPhUFQKIz02eGmFL6re3bgklopU1oRZSXSoCEVJIIreZXkmTHK8SODvM5xdhOV4bIOYJJMY00/JvekzmniMzB/NXIluf70JJaud6NUlXbgpk1VIofQgDkOWJ+JckchOTZukJi9OHL4UTiRx2qW2f8D2MqxdRpAWnFqGHS99lf7xQYZdOtvPmbUM57+pXlcB42WIOKq+Z+hwxn+ufH2/1fcNrcEZyUVpXm0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Datasource Plugin 结构图&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/b9e4f/datasource.png&quot;
+        srcset=&quot;/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/cf440/datasource.png 148w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/d2d38/datasource.png 295w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/b9e4f/datasource.png 590w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/f9b6a/datasource.png 885w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/2d849/datasource.png 1180w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/bbefa/datasource.png 1770w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/dd1cd/datasource.png 2740w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;Datasource&lt;/h3&gt;
+&lt;p&gt;Datasource 类作为数据入口，主要负责与数据源进行通信。
+针对 Tencent Cloud Monitor App 中不同的产品，都必须有一个对应 Datasource 实现类。因此我们定义了一个 Datasource 类的接口协议，每个产品的 Datasource 类都必须遵循这个接口协议：  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DatasourceInterface&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  instanceSettings&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  backendSrv&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  templateSrv&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;options&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;testDatasource&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;metricFindQuery&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;query&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getRegions&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;service&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getMetrics&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;service&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; region&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getInstances&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;service&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; region&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; params&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  getZones&lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;service&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; region&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;备注：  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Datasource 类如果要实现以下功能函数，则必须遵循 Grafana 命名协议约定，所以 Datasource 类的接口协议也是按照该要求进行设计。&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;options&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;             &lt;span class=&quot;token comment&quot;&gt;// Required, used by panels to get data&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;testDatasource&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;           &lt;span class=&quot;token comment&quot;&gt;// Required, used by datasource configuration page to make sure the connection is working&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;annotationQuery&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;options&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;token comment&quot;&gt;// used by dashboards to get annotations&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;metricFindQuery&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;options&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;token comment&quot;&gt;// used by query editor to get metric suggestions.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Datasource 类的主要代码：  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;/* Datasource Plugin 中的 datasource 类 */&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; Datasources&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;SERVICES&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./tc_monitor&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;token comment&quot;&gt;// Datasources 是每个云产品对应的 Datasource 实现类组成的对象&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;TCMonitorDatasource&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DatasourceInterface&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  instanceSettings&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  backendSrv&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  templateSrv&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;/** @ngInject */&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;instanceSettings&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; backendSrv&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; templateSrv&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;instanceSettings &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; instanceSettings&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;backendSrv &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; backendSrv&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;templateSrv &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; templateSrv&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    _&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Datasources&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;_class&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;                   &lt;span class=&quot;token comment&quot;&gt;// 自动实例化每个云产品的 Datasource 类&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;key&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;_class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;instanceSettings&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;backendSrv&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;templateSrv&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;testDatasource&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;                 &lt;span class=&quot;token comment&quot;&gt;// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 testDatasource()&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;                   &lt;span class=&quot;token comment&quot;&gt;// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 query()&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;metricFindQuery&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;           &lt;span class=&quot;token comment&quot;&gt;// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 getRegions()&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getRegions&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;                     &lt;span class=&quot;token comment&quot;&gt;// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 getMetrics()&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getMetrics&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;                     &lt;span class=&quot;token comment&quot;&gt;// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 getZones()&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getInstances&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getZones&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;/*CVM 产品中的 datasource 模块*/&lt;/span&gt; 
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;CVMDatasource&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DatasourceInterface&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;testDatasource&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;metricFindQuery&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getRegions&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getMetrics&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getInstances&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;getZones&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在新增产品时只需在 &lt;code&gt;tc_monitor&lt;/code&gt; 目录中增加对应子目录实现各自的 &lt;code&gt;datasource.ts&lt;/code&gt; 类（继承&lt;code&gt;DatasourceInterface&lt;/code&gt; 协议），再在&lt;code&gt;tc_monitor&lt;/code&gt; 目录的 index.tx 文件中通过 Datasources 配置该类入口。
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/c1674ccab4e6d1403d1d5d400737a451/ace41/grafana_datasource.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 62.225097024579554%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAABMElEQVQoz6WTa6uCQBCG/f+/KgIp+yCKppKggpJWXsASb+XEO7CyeTwfTmdg2GV25tm57CokyTRNvFZVRVEU0WazIU3TyDAM2m63dL1e6fF4fPguRVkDpmlKnufR+XyeAZDn80ld1/0dmGUZ+b7/I5uvgcgwCALK83wG/At4uVy4h0VRUNu23wHhIGeIkuM4pr7vfwWuQRX5UDhgGKfTiacqy+v1mi+QY2SwsnaQJAm5rss9HMeRIcMwcPlN09CyKlkZiJuFAYH3+50DUR6A8h5w7OEnEkC8YCjLktYEvVsODzZxwUcPwzCkw+FAu92O9Xg88nQRYNs22/BbdF0nx3Hmt2lZFv+e/X7P56ZpkqqqpNxuN4LiqWBF3+q65pIwFKHCT/QQe9jxTRFbliX3/Q06faEpv6dkBwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Tencent Cloud Monitor App 中 Datasource Plugin 的结构图&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/c1674ccab4e6d1403d1d5d400737a451/b9e4f/grafana_datasource.png&quot;
+        srcset=&quot;/blog/static/c1674ccab4e6d1403d1d5d400737a451/cf440/grafana_datasource.png 148w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/d2d38/grafana_datasource.png 295w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/b9e4f/grafana_datasource.png 590w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/f9b6a/grafana_datasource.png 885w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/2d849/grafana_datasource.png 1180w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/ace41/grafana_datasource.png 1546w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;QueryCtrl&lt;/h3&gt;
+&lt;p&gt;当用户在 Dashboard 页面对 Panel 进行编辑时，QueryCtrl 类将被实例化并作为 Angular 控制器，并根据类中的 &lt;code&gt;templateUrl&lt;/code&gt; 去加载对应的 View 视图，以图形化的界面提供接口数据查询。该类必须继承自 &lt;strong&gt;grafana/app/plugins/sdk&lt;/strong&gt;。具体页面展示以及主要代码逻辑如下：
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/0478f/panel_query.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 35.04842615012107%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA2UlEQVQoz41Ry47CMAzMFUoTaJ5uAt3SrIp6gP//utk4IBYhIXoYjW1ZM36IkSy0tpDqAG0crPVQJd5ud1+x2TRoW4W+j4jxCOc8xPWSsdceFAeYIshiXWeqyRp0D+ZBmMU8L9B0RF5uaHeyCjoXagMbmMIcuwe/47XO/WI6TzhYwjDN8J6eCKFH/r1gSAmBayUPX8CDCCkVpNzXwrJccc4ziBJOpxHjmBH7VPM14EFE07RPQRZLRFDFxJj/NeyHdd9Rb8jfYkFWH36mKsxPubvG+53KKmvA5n+TS7AOOwRqjQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Tencent Cloud Monitor App 中 Panel 面板的数据查询页面&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/b9e4f/panel_query.png&quot;
+        srcset=&quot;/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/cf440/panel_query.png 148w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/d2d38/panel_query.png 295w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/b9e4f/panel_query.png 590w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/f9b6a/panel_query.png 885w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/2d849/panel_query.png 1180w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/bbefa/panel_query.png 1770w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/0478f/panel_query.png 3304w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; QueryCtrl &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;grafana/app/plugins/sdk&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;TCMonitorDatasourceQueryCtrl&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;QueryCtrl&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; templateUrl &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;datasource/partials/query.editor.html&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  datasource&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;                  &lt;span class=&quot;token comment&quot;&gt;// 对应 datasource.ts 实例的对象&lt;/span&gt;
+  panelCtrl&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;                   &lt;span class=&quot;token comment&quot;&gt;// 对应 Panel 的实例对象&lt;/span&gt;
+  target&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;                         &lt;span class=&quot;token comment&quot;&gt;// 具体的查询条件信息保存&lt;/span&gt;
+    refId&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    namespace&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    service&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    showInstanceDetails&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; boolean&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  defaults &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;                      &lt;span class=&quot;token comment&quot;&gt;// 初始化值&lt;/span&gt;
+    namespace&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    service&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    showInstanceDetails&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;InitServiceState&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  lastQuery&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  lastQueryError&lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; string&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;/** @ngInject */&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;$scope&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $injector&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; templateSrv&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;$scope&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $injector&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    _&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;defaultsDeep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;target&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;defaults&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;panelCtrl&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;events&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;data-received&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;onDataReceived&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; $scope&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Panel 实例的数据接收处理函数&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;onDataReceived&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;dataList&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;lastQueryError &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;lastQuery &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; anySeriesFromQuery&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; _&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dataList&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; refId&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;target&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;refId &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;anySeriesFromQuery&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;lastQuery &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; anySeriesFromQuery&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;query&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;// Panel 数据查询失败的调用函数&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;onDataError&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;handleQueryCtrlError&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;err&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;token function&quot;&gt;handleQueryCtrlError&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// 省略其它详细代码&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;对应视图 View 中的部分代码如下，&lt;code&gt;&amp;#x3C;query-editor-row query-ctrl=&quot;ctrl&quot;&gt;&amp;#x3C;/query-editor-row&gt;&lt;/code&gt; 标签的内容会加入到Add Query模板中：&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;query-editor-row&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;query-ctrl&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;generic-datasource-query-row&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;has-text-edit-mode&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;true&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;gf-form-inline&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;gf-form&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;label&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;gf-form-label query-keyword width-9&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Namespace&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;label&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;gf-form-select-wrapper gf-form-select-wrapper--caret-indent&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;select&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;gf-form-input min-width-12&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;ng-model&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.target.namespace&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;ng-options&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;f as f for f in ctrl.namespaces&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+          &lt;span class=&quot;token attr-name&quot;&gt;ng-change&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.onNamespaceChange()&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;select&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+      &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- 省略更多详情 --&gt;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- 新增不同的云产品，需要在该处增加新产品独有的配置页面 --&gt;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- CVM --&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;cvm-query&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;ng-if&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.target.service===&apos;cvm&apos;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.target.cvm&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;show-detail&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.checkShowDetail(&apos;instance&apos;)&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;datasource&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.datasource&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;on-change&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.onInstanceQueryChange()&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.replace(ctrl.target.cvm.region)&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;cvm-query&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- Global error message --&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;gf-form&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;ng-show&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;ctrl.lastQueryError&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;pre&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;gf-form-pre alert alert-error&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;{{ctrl.lastQueryError}}&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;pre&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;query-editor-row&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt; QueryCtrl 类是查询面板的入口，其中 &lt;code&gt;Namespace&lt;/code&gt;、&lt;code&gt;Region&lt;/code&gt;、&lt;code&gt;MetricName&lt;/code&gt;、 &lt;code&gt;Period&lt;/code&gt;、 &lt;code&gt;Insatnce&lt;/code&gt; 查询条件是腾讯云产品共有的，其业务逻辑实现在 QueryCtrl 类中。对于自定义业务，则可在自定义QueryCtrl 类中实现单独的 Angular 组件。以上面图片显示的面板为例，其中 ShowDetail 控制获取特定业务的实例列表数据，因此需抽象到单独的 Angular 组件中。新增产品则需要在 &lt;code&gt;tc_monitor&lt;/code&gt; 目录实现各自的 &lt;code&gt;query.ts&lt;/code&gt; 类，并在 index.tx 文件中通过 &lt;code&gt;import&lt;/code&gt; 注册该组件，则对应在 &lt;code&gt;query.editor.html&lt;/code&gt; 中引入产品实现的组件即可。
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/120ec90f84f732f76dbd3074fbd69b60/f0f0d/grafana_query.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 39.961265332472564%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsSAAALEgHS3X78AAABu0lEQVQoz31SW0tiURTeDzYSYjf1aOccO9lliJqcYWimt0T6c2W9VhhFETXVi/Va782beR8dERW8oII3FLz7dfaCrF5asPj2Zn372+vbezGoMRwOOaDT6aBcLqNQKKBYLCKbzSKVSqHZbKLRaBDn4fERku0r5m1LMJtnIUlWWK0Kre32H2Bc7FWwXq/D6/UiFoshnU6jUqmgVquNcDAY4O7uHtoJI8Z1E2CMQTOmhVY7TihLMhgn8ex2u3QoHA4jHo8jmUyOknfd6/Xo4kQigcMjN05OTuF2H+Pg4JDw7PwC15eXYHgXXDiTyaBUKpHlfD5PWa1W8d7JZ8H+RaOIRmMIhcLw+/14evqL52cfifDo9/uEuVxOrQcQiUQQCASJEwyG4PP51Sf6Tzzugs0pNoiiTA87q6Ki7vX6Sdzc3JJQq9Ui3N3dgyQrWFhYJj7n8g+ZnJqB07k9cshEiwiTyUIFo1GA0WSGRvMFV1d/Pgju7LggCCKU+UUYDCbimgULdDo9trYcb4IbPzfw+9cmvq/bsbqyim9r67DKc/B4PERqt9uELtc+REmBoI7H9LSBxsSiNsPdOBzOkeALpTrOQ7JO+MAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Tencent Cloud Monitor App 中 Datasource Plugin 的 QueryCtrl 结构图&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/120ec90f84f732f76dbd3074fbd69b60/b9e4f/grafana_query.png&quot;
+        srcset=&quot;/blog/static/120ec90f84f732f76dbd3074fbd69b60/cf440/grafana_query.png 148w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/d2d38/grafana_query.png 295w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/b9e4f/grafana_query.png 590w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/f9b6a/grafana_query.png 885w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/2d849/grafana_query.png 1180w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/bbefa/grafana_query.png 1770w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/f0f0d/grafana_query.png 3098w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;ConfigCtrl 类&lt;/h3&gt;
+&lt;p&gt;ConfigCtrl 类是添加数据源的面板进行控制。
+当用户对该 App Plugin 的数据源进行配置时，该类会被实例化为 Angular 的控制器，并根据类中的 &lt;code&gt;templateUrl&lt;/code&gt; 去加载对应的 View 视图，用于呈现数据源自定义配置的面板。具体页面展示示例如下：
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/c5371a02dd8247fa0bd1676d6863d678/91670/datasource_config.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 85.38461538461539%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAACdklEQVQ4y5WUyXLTQBCGdY2teNEujSzNyLI22/EWx45DcUgRqEA4cOMtOENx5XV4xZ/ucZyYEChy+KtlS/3N34tkFKMR1OIa8dkbzGcLbDaXWK3WWC7PUddjjMdTTCZTNM2ExL/3sSwrFEWJ4TDXsiwb7bYJY0Q3gs9f0P/0DZtX17j7cIebm3e4vX2P7XaH9foCu92VBh2DGVbXDaqq1te27eyBVVWRsxqLcYVSKQwGkpRCiAHiONExCCJ4nq+T2EmvZ6Hb7eH0tAPTPEWr1dbRNAmo1BCZTDFtashUIk2VBjIsimKS0EBWGAoCB3AcD7ZDB3B8cojBDyZphkgQgNwcnLEOYI6RiCnZ1fdTmSEJA0R+QAeE8P1HEVBgMp1jkCitAyBJJCQl8rXKhhrUaplQKsd0tkIdu0g9G7ZLUNeHey+Dy2AIA7h8hliWg37f1pFd8bVtubpcTtIlE8ih6/1/gY4sgx1st1eYzZZaDU1TO0tS3TdO5gP5YIYxXB9AvTu4OsA0kB+83L3GfLGGiCW5cpHRXhVFpcu0KJGB3B8GcdknJ20aQP95oO9HKCvaq7JBGA30n1wmix/maJodWpEuOp3e/TT7uh3PAtlFnhfIslwvaBSnVKb/0C+OhwkeJx7fP4YaXM7qfENbP0E9nqGRMULHpob/nvicnsL2PaTlXa4uINUIMq9xnnqQLk34yOW/9IfDgHqYZwVEMNBDkcKH77p6JY4Tnjr5mwwvoH1KqT8ZvWIixMgTUL546Nn/gh5Lnkpsvt9i/eMjNm/P8HN+ja/lAmcL2kn6fPGUXwRkh74iRxkNQ0So3RBDej/1B4FcvtThLyPmxEia9bgoAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Tencent Cloud Monitor App 的数据源配置页面&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/c5371a02dd8247fa0bd1676d6863d678/b9e4f/datasource_config.png&quot;
+        srcset=&quot;/blog/static/c5371a02dd8247fa0bd1676d6863d678/cf440/datasource_config.png 148w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/d2d38/datasource_config.png 295w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/b9e4f/datasource_config.png 590w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/f9b6a/datasource_config.png 885w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/2d849/datasource_config.png 1180w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/91670/datasource_config.png 1300w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;/* 文件路径为 /src/datasource/config.ctrl.ts */&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; _ &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;lodash&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;SERVICES&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./tc_monitor&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;TCMonitorDatasourceConfigCtrl&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; templateUrl &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;datasource/partials/config.html&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;token comment&quot;&gt;// 指定该Controller 对应 View 文件，且实际路径为 /src/datasource/partials/config.html&lt;/span&gt;
+  current&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; any&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;/** @ngInject */&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;current&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;jsonData&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;services &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;SERVICES&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    _&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;current&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;jsonData&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;services&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;current&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;jsonData&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;service&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;service&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;结束&lt;/h2&gt;
+&lt;p&gt;Tencent Cloud Monitor App 已经在 github.com 上开源了，欢迎大家多提 issues，顺便给我们 Star 鼓励一下。&lt;br&gt;
+项目地址：TencentCloud/tencentcloud-monitor-grafana-app (&lt;a href=&quot;https://github.com/TencentCloud/tencentcloud-monitor-grafana-app&quot;&gt;https://github.com/TencentCloud/tencentcloud-monitor-grafana-app&lt;/a&gt;)&lt;/p&gt;</content:encoded></item><item><title><![CDATA[JavaScript 基于原型的面向对象设计]]></title><description><![CDATA[原型与原型链 JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。 构造函数、原型对象及实例的关系 在 JavaScript…]]></description><link>https://github.com/susiezhao/blog/javascript/object_oriented/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/javascript/object_oriented/</guid><pubDate>Sat, 27 Apr 2019 22:12:03 GMT</pubDate><content:encoded>&lt;h2&gt;原型与原型链&lt;/h2&gt;
+&lt;p&gt;JavaScript 也是一种面向对象的语言，在 JavaScript 中一切皆为对象。 JavaScript 采用的是基于原型的面向对象系统，且通过基于原型链的方式来实现继承的。&lt;/p&gt;
 &lt;h3&gt;构造函数、原型对象及实例的关系&lt;/h3&gt;
 &lt;p&gt;在 JavaScript 中所有的函数都有一个不可枚举的 &lt;code&gt;prototype&lt;/code&gt; 的属性，该属性是一个指针，指向一个被称为原型的对象（即原型）。原型对象有一个默认不可枚举的 &lt;code&gt;constructor&lt;/code&gt; 属性，其也是一个指针，默认指向与原型对象关联的函数。例如：  &lt;code&gt;function Foo() {}&lt;/code&gt; 的原型对象是 &lt;code&gt;Foo.prototype&lt;/code&gt;，则有 &lt;code&gt;Foo.proptotype.constructor === Foo&lt;/code&gt; 成立。  &lt;/p&gt;
 &lt;p&gt;在 JavaScript 中通过关键字 &lt;code&gt;new&lt;/code&gt; 调用的函数通常被称为构造函数。在默认的约定中，构造函数的首字母始终为大写字母，非构造函数的首字母则以一个小写字母开头。构造函数通常是用来创建特定类型的对象，且通过构造函数生成的对象称为该构造函数的实例。

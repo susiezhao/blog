@@ -1,0 +1,554 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.75 'Merriweather','Georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.9);font-family:'Merriweather','Georgia',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:Montserrat,sans-serif;font-weight:900;text-rendering:optimizeLegibility;font-size:2.5rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.73286rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.4427rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;letter-spacing:0.140625em;text-transform:uppercase;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.83255rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.75966rem;line-height:1.1;font-style:italic;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}ul{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;list-style:disc;}ol{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:0.85rem;line-height:1.75rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1rem;line-height:1.75rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}blockquote{margin-left:-1.75rem;margin-right:1.75rem;margin-top:0;padding-bottom:0;padding-left:1.42188rem;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1.20112rem;line-height:1.75rem;color:hsla(0,0%,0%,0.59);font-style:italic;border-left:0.32813rem solid hsla(0,0%,0%,0.9);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.75rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.75rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}li > ul{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.75rem / 2);}code{font-size:0.85rem;line-height:1.75rem;}kbd{font-size:0.85rem;line-height:1.75rem;}samp{font-size:0.85rem;line-height:1.75rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.16667rem;padding-right:1.16667rem;padding-top:0.875rem;padding-bottom:calc(0.875rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.75rem;color:hsla(0,0%,0%,0.9);font-weight:400;}blockquote cite:before{content:"— ";}ul,ol{margin-left:0;}@media only screen and (max-width:480px){ul,ol{margin-left:1.75rem;}blockquote{margin-left:-1.3125rem;margin-right:0;padding-left:0.98438rem;}}h1,h2,h3,h4,h5,h6{margin-top:3.5rem;}a{box-shadow:0 1px 0 0 currentColor;color:#007acc;text-decoration:none;}a:hover,a:active{box-shadow:none;}mark,ins{background:#007acc;color:white;padding:0.10938rem 0.21875rem;text-decoration:none;}a.gatsby-resp-image-link{box-shadow:none;}</style><link rel="apple-touch-icon" sizes="256x256" href="/blog/icons/icon-256x256.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><link rel="preconnect dns-prefetch" href="https://www.google-analytics.com"/><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml"/><link rel="shortcut icon" href="/blog/icons/icon-48x48.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><link rel="manifest" href="/blog/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/blog/icons/icon-48x48.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><link rel="apple-touch-icon" sizes="72x72" href="/blog/icons/icon-72x72.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><link rel="apple-touch-icon" sizes="96x96" href="/blog/icons/icon-96x96.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><link rel="apple-touch-icon" sizes="144x144" href="/blog/icons/icon-144x144.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><link rel="apple-touch-icon" sizes="192x192" href="/blog/icons/icon-192x192.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><meta name="generator" content="Gatsby 2.3.5"/><link rel="apple-touch-icon" sizes="384x384" href="/blog/icons/icon-384x384.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><link rel="apple-touch-icon" sizes="512x512" href="/blog/icons/icon-512x512.png?v=07fab8ad5473f1e15e5f98b64f5d02eda19b8316"/><title data-react-helmet="true">Grafana App 插件开发 | Blog</title><meta data-react-helmet="true" name="description" content="Grafana App 插件开发"/><meta data-react-helmet="true" property="og:title" content="Grafana App 插件开发"/><meta data-react-helmet="true" property="og:description" content="Grafana App 插件开发"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="susiezhao"/><meta data-react-helmet="true" name="twitter:title" content="Grafana App 插件开发"/><meta data-react-helmet="true" name="twitter:description" content="Grafana App 插件开发"/><style data-href="/blog/styles.bda3f786bd2277bf28d3.css">@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/blog/static/montserrat-latin-100-4124805c0503dbfe42dd67d7f5715964.woff2) format("woff2"),url(/blog/static/montserrat-latin-100-c8fb2f714bbc7bc3e8dfffa916b286dc.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/blog/static/montserrat-latin-100italic-e4bf47bd171a9b2a72dd84c58bf90edf.woff2) format("woff2"),url(/blog/static/montserrat-latin-100italic-d1f3f2d02ee4d7d2d4b1ad865014f189.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/blog/static/montserrat-latin-200-444ae007121264bc1969d49b4031f9b2.woff2) format("woff2"),url(/blog/static/montserrat-latin-200-edbce16a90aa22c297a0307b85789837.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/blog/static/montserrat-latin-200italic-f316c5d1ec40f3e68654c3f38b3999f3.woff2) format("woff2"),url(/blog/static/montserrat-latin-200italic-d7bbb730d9b5e11720b3eb32326dcca7.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/blog/static/montserrat-latin-300-0a7c6df06e85d978d096d4d18fd8d43d.woff2) format("woff2"),url(/blog/static/montserrat-latin-300-5e86df2cad22d2ef2b03516334afae5e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/blog/static/montserrat-latin-300italic-c076c4892bc7a4be7b9097e97a35012d.woff2) format("woff2"),url(/blog/static/montserrat-latin-300italic-37c74a8d2d0d36a0a2c6e9a37ee15b0c.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/blog/static/montserrat-latin-400-501ce09c42716a2f6e1503a25eb174c9.woff2) format("woff2"),url(/blog/static/montserrat-latin-400-f29d2b8559699b6beb5b29b25b8bc572.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/blog/static/montserrat-latin-400italic-882908d9950d9c86ebd380877f293d95.woff2) format("woff2"),url(/blog/static/montserrat-latin-400italic-22e7b04e5f2a901d49d4d342315a715a.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/blog/static/montserrat-latin-500-f0f2716c5fe401d175b88715e7d28685.woff2) format("woff2"),url(/blog/static/montserrat-latin-500-991b453bf90a0980e78966d2af7e3d3a.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/blog/static/montserrat-latin-500italic-4590ebba421b3288c305305d7fa7b504.woff2) format("woff2"),url(/blog/static/montserrat-latin-500italic-f3d41e4cdcc2314e49ddcea751d6f87f.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/blog/static/montserrat-latin-600-15c24f7109941777774ddd2c636c6a50.woff2) format("woff2"),url(/blog/static/montserrat-latin-600-f6dc6096f48956908c1787d9a722570a.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/blog/static/montserrat-latin-600italic-6d10b80529d5c36c7c09fca7193af0fc.woff2) format("woff2"),url(/blog/static/montserrat-latin-600italic-02c4833312d94b1b0866f073023a250e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/blog/static/montserrat-latin-700-79982cd1f74c6fa7451bf9b37ead09ff.woff2) format("woff2"),url(/blog/static/montserrat-latin-700-957e93fbbe131a59791cd820d98b7109.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/blog/static/montserrat-latin-700italic-283438e9577fe6a684466bb100e105ec.woff2) format("woff2"),url(/blog/static/montserrat-latin-700italic-ca627c5ccc65cf80c2ecaea44b997de9.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/blog/static/montserrat-latin-800-35386154b78d046218fc8f88a44ff515.woff2) format("woff2"),url(/blog/static/montserrat-latin-800-756655905d91b77960888262e7d58d35.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/blog/static/montserrat-latin-800italic-e1b52a7bd83e2324db6d92bdc206844c.woff2) format("woff2"),url(/blog/static/montserrat-latin-800italic-a69f0add9d86c1a84311d7dd8693ba4a.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/blog/static/montserrat-latin-900-260c2ea3ef57feb82251952e605a36d5.woff2) format("woff2"),url(/blog/static/montserrat-latin-900-186cae8091da578150d81958e217714a.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/blog/static/montserrat-latin-900italic-d785fb9fc74588ffb7f306799709a97d.woff2) format("woff2"),url(/blog/static/montserrat-latin-900italic-43b527fe77254f97ea36e2b54e845ec4.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/blog/static/merriweather-latin-300-b1158cfcd4aacb9d8fb61625e37af46a.woff2) format("woff2"),url(/blog/static/merriweather-latin-300-cc7de05e166e90320d7d896e0f72a19d.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/blog/static/merriweather-latin-300italic-8fe52a48089d6ebe46db0b8e7cc66263.woff2) format("woff2"),url(/blog/static/merriweather-latin-300italic-e1331f5397c2a673f9d3765138debdb5.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/blog/static/merriweather-latin-400-8276fdb72ae8f4714d4e6eba704cc39f.woff2) format("woff2"),url(/blog/static/merriweather-latin-400-69f09800f4f6479d06e44eba837df872.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/blog/static/merriweather-latin-400italic-3a9be9ea9f7aa4af6de7307df21d9fc0.woff2) format("woff2"),url(/blog/static/merriweather-latin-400italic-d76079ed7541a433a54f79316de086e9.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/blog/static/merriweather-latin-700-fa534be7ffa380e39a7f6e03bf9a5e03.woff2) format("woff2"),url(/blog/static/merriweather-latin-700-ba56ea84b8084b7ff9677f50d3cd81bd.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/blog/static/merriweather-latin-700italic-1ef5edaaa20ae53ea50399884c5e48c6.woff2) format("woff2"),url(/blog/static/merriweather-latin-700italic-534bc9e7ce93c73d73426e46acd78092.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/blog/static/merriweather-latin-900-7528fb70e8a4a82c7305e72ff43ac25f.woff2) format("woff2"),url(/blog/static/merriweather-latin-900-3799b6e2f5ed3fcccf9d7a708d7419fa.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/blog/static/merriweather-latin-900italic-e1b4d2aaa78e12ad84aaf8a56321e4c2.woff2) format("woff2"),url(/blog/static/merriweather-latin-900italic-2ae22f731b3424e8dbb4b37f7ca6e708.woff) format("woff")}code[class*=language-],pre[class*=language-]{color:#f8f8f2;background:none;text-shadow:0 1px rgba(0,0,0,.3);font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;border-radius:.3em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#272822}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#f8f8f2}.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#f92672}.token.boolean,.token.number{color:#ae81ff}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a6e22e}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#f8f8f2}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#e6db74}.token.keyword{color:#66d9ef}.token.important,.token.regex{color:#fd971f}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style><link as="script" rel="preload" href="/blog/component---src-templates-blog-post-js-0ea042526253178bf452.js"/><link as="script" rel="preload" href="/blog/0-167616ab40b3f40665e8.js"/><link as="script" rel="preload" href="/blog/app-c2e091b31346f57f7706.js"/><link as="script" rel="preload" href="/blog/styles-05d9f0bfc57d3d2a2ff4.js"/><link as="script" rel="preload" href="/blog/webpack-runtime-f47bf87ccf8a7822760e.js"/><link as="fetch" rel="preload" href="/blog/static/d/160/path---grafana-app-develop-b-56-248-wXStRTkiKoCDXEDchWVkQkPHasI.json" crossorigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div style="margin-left:auto;margin-right:auto;max-width:42rem;padding:2.625rem 1.3125rem"><header><h3 style="font-family:Montserrat, sans-serif;margin-top:0"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/blog/">Blog</a></h3></header><main><h1>Grafana App 插件开发</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem;margin-top:-1.75rem">May 15, 2019</p><div><h1>Tencent Cloud Monitor App</h1>
+<p>Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb 等众多的数据源，并以功能强大的界面编辑器著称，允许您对指标进行查询、可视化展示、设置告警等操作，以及自定义配置仪表盘。 </p>
+<p>Grafana 已经拥有一个强大的贡献者和插件开发者社区。开发者社区提供了三种类型的插件： </p>
+<ul>
+<li>Panel Plugin: 针对图形展示的面板插件；</li>
+<li>Datasource Plugin: 针对数据源的插件；</li>
+<li>App Plugin: 针对完整应用的插件，通常由 Panel Plugin，Datasource Plugin 以及 Dashboards 模板组成；</li>
+</ul>
+<h2>Tencent Cloud Monitor App 的目录结构</h2>
+<p>本文主要介绍的是 App Plugin 的开发过程以及相关的代码组织。基于腾讯云云监控 API 的 Tencent Cloud Monitor App 插件(<a href="https://github.com/TencentCloud/tencentcloud-monitor-grafana-app">TencentCloud/tencentcloud-monitor-grafana-app</a>)，主要由两部分组成： Datasource Plugin 和 Dashboards 模板组成，代码的目录结构如下：</p>
+<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">.
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+├── dist                                        // 文件夹，文件夹 src 打包后的代码
+├── package.json
+├── src
+│   ├── components
+│   │   ├── config.html
+│   │   └── config.ts
+│   ├── dashboards                              // Dashboards 典型模板存放
+│   │   ├── example_cdb_dashboard.json
+│   │   └── example_cvm_dashboard.json
+│   ├── datasource                              // Datasource Plguin 代码
+│   │   ├── __mocks__
+│   │   │   └── core_module.ts
+│   │   ├── common
+│   │   │   ├── constants.ts
+│   │   │   └── sign.ts
+│   │   ├── components                          // 自定义的 Angular 组件
+│   │   │   ├── custom_select_dropdown.ts
+│   │   │   └── multi_condition.ts
+│   │   ├── css
+│   │   │   └── query_editor.css
+│   │   ├── config.ctrl.ts                       // ConfigCtrl 模块
+│   │   ├── datasource.ts                        // Datasource 模块
+│   │   ├── query.ctrl.ts                        // QueryCtrl 模块
+│   │   ├── img
+│   │   │   └── tencent-cloud.svg
+│   │   ├── partials                             // Datasource Plugin 中的 html 页面
+│   │   │   ├── config.html                      // config.ctrl.ts 对应的 html
+│   │   │   ├── query.editor.html                // query.ctrl.ts 对应的 html
+│   │   ├── module.ts                            // Datasource Plguin 的 module.ts
+│   │   ├── plugin.json                          // Datasource Plguin 的 module.ts
+│   │   ├── specs                                // 测试用例文件夹
+│   │   │   ├── tc_monitor_cdb_datasource.test.ts
+│   │   │   └── tc_monitor_cvm_datasource.test.ts
+│   │   └── tc_monitor                           // 云监控相关的产品
+│   │       ├── cdb
+│   │       │   ├── datasource.ts
+│   │       │   ├── query.ts
+│   │       │   └── query_def.ts
+│   │       ├── cvm
+│   │       │   ├── datasource.ts
+│   │       │   ├── query.ts
+│   │       │   └── query_def.ts
+│   │       └── index.ts
+│   ├── image                                    // 文件夹，存放README.md 中图片
+│   ├── img
+│   │   └── tencent-cloud.svg
+│   ├── module.ts                                // App Plguin 的 module.ts
+│   └── plugin.json                              // App Plugin 的 plugion.json
+├── jest.config.js                               // jest 框架的配置信息
+├── tsconfig.jest.json
+├── tsconfig.json
+├── tslint.json
+├── webpack.config.analyze.js
+├── webpack.config.js
+└── webpack.config.prod.js</code></pre></div>
+<p>在每个 Plugin 开发中存在两个重要的配置文件： <strong>plugin.json</strong> 和 <strong>module.ts</strong>。</p>
+<h3>plugin.json</h3>
+<p> <code>plugin.json(Required)</code>: 用于描述插件的相关信息。在 Grafana 服务启动时会扫描所有的插件文件夹并挂载每个插件的 dist 目录，并查找 <code>plugin.json</code> 文件，根据文件的内容完成插件的自动注册。  </p>
+<p>在 Tencent Cloud Monitor App 中存在两种类型的 Plugin, 其配置文件如下：
+App Plugin 中配置 <code>plugion.json</code>：</p>
+<div class="gatsby-highlight" data-language="json"><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"app"</span><span class="token punctuation">,</span>                                          <span class="token comment">// 插件的类型： panel | app | datasource</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Tencent Cloud Monitor"</span><span class="token punctuation">,</span>                        <span class="token comment">// 插件名称</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"tencentcloud-monitor-app"</span><span class="token punctuation">,</span>                       <span class="token comment">// 插件ID, 必须唯一</span>
+  <span class="token property">"info"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Tencent Cloud Monitor App for Grafana"</span><span class="token punctuation">,</span>
+    <span class="token property">"author"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Tencent Cloud"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"keywords"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"tencentcloud"</span><span class="token punctuation">,</span>
+      <span class="token string">"tencentcloudmonitor"</span><span class="token punctuation">,</span>
+      <span class="token string">"grafana"</span><span class="token punctuation">,</span>
+      <span class="token string">"plugins"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"logos"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"small"</span><span class="token operator">:</span> <span class="token string">"img/tencent-cloud.svg"</span><span class="token punctuation">,</span>
+      <span class="token property">"large"</span><span class="token operator">:</span> <span class="token string">"img/tencent-cloud.svg"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"updated"</span><span class="token operator">:</span> <span class="token string">"2019-04-10"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"includes"</span><span class="token operator">:</span> <span class="token punctuation">[</span>                                            <span class="token comment">// App Plugin 中包含的 Datasource Plugin 和 Dashboards 模板信息</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"dashboard"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"【实例】CDB 单机监控"</span><span class="token punctuation">,</span>
+      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"dashboards/example_cdb_dashboard.json"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"dashboard"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"【实例】CVM 单机监控"</span><span class="token punctuation">,</span>
+      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"dashboards/example_cvm_dashboard.json"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"datasource"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Tencent Cloud Monitor Datasource"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"grafanaVersion"</span><span class="token operator">:</span> <span class="token string">"6.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>Datasource Plugin 中配置 <code>plugin.json</code>：</p>
+<div class="gatsby-highlight" data-language="json"><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"datasource"</span><span class="token punctuation">,</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Tencent Cloud Monitor Datasource"</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"tencentcloud-monitor-datasource"</span><span class="token punctuation">,</span>
+  <span class="token property">"metrics"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>                           <span class="token comment">// Datasource plugin 特有的属性，是否在 panel 中支持 metrics</span>
+  <span class="token property">"annotations"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>                       <span class="token comment">// Datasource plugin 特有的属性，是否在 dashboard 中支持 annotations 查询</span>
+  <span class="token property">"queryOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"maxDataPoints"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"routes"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"info"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"author"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Tencent Cloud"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"logos"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"small"</span><span class="token operator">:</span> <span class="token string">"img/tencent-cloud.svg"</span><span class="token punctuation">,</span>
+      <span class="token property">"large"</span><span class="token operator">:</span> <span class="token string">"img/tencent-cloud.svg"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p><strong>特别注意</strong> Datasource Plugin 的 <code>plugin.json</code> 配置中必须存在 <strong>metric</strong> 和 <strong>annotations</strong>，且其中至少有一个属性的值为 <code>true</code>。</p>
+<h3>module.ts</h3>
+<p><code>module.ts(Required)</code>： Plugin 入口文件，决定了 Plugin 的具体实现的。根据插件的类型不同其内容也有所差异。 </p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">/* App Plugin 的 module.ts 需要导出1个模块 */</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span>
+  ConfigCtrl<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* Datasource Plugin 的 module.ts 通常需要导出5个模块 */</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span>
+  Datasource<span class="token punctuation">,</span>                 <span class="token comment">// Required</span>
+  ConfigCtrl<span class="token punctuation">,</span>                 <span class="token comment">// Required</span>
+  QueryCtrl<span class="token punctuation">,</span>                  <span class="token comment">// Required</span>
+  AnnotationsQueryCtrl<span class="token punctuation">,</span>
+  QueryOptionsCtrl
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre></div>
+<h2>Tencent Cloud Monitor App 开发实践</h2>
+<p>基于腾讯云云监控 API —— Tencent Cloud Monitor App 完整结构图如下所示：<br>
+<a
+    class="gatsby-resp-image-link"
+    href="/blog/static/b66a38b49c8271401f463325d631118c/87727/grafana_app.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 47.408343868520866%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAACWElEQVQozyWS20uTYRzH3yA8bG5O9+6dzsPm3NLK6LYLiTKhoJwX1qUVFLmpIBjaf5BuopBpYCDNPHQneTWdh7oNQS/GEr1JBUU8gXjWbZ+e9/ELP56b9/k83+/v+yoLsb9Mzfzm19wcs7NzRCIRxsfHiUajHB8fc3p6ytbWFpubm5ycnJBKJVmIxZmIzDAdnWJqcpKfExOMjAwzPz+P8ibQgpqr4nbkYzLnkJGRiaIoOJ0utre3WV1dZXl5mY2NDQ4ODtDlb24hzWihxG5DyzKQlpYu7wT8TSidvUFePXvC0+rHPHhYxaOqaior71Nf/5KjoyP29vbY3d3l4uJCutXV+6kXX00Nz+teiLOWWp8PX91rhr+NofxZXGRoaIwfo6OEh74TDocZHByUoztKJpPs7++zs7PD+fm5BOqr6e7uYWDgK/39X+jr6ycUCjI9M43ysSOE0aKJiCXYbHYsllwZW1VtxONxGXd9fZ21tTU5yWSCt+/8XLuegclkJj09E4Mh6ypyQEQOdgZRrSpOVwn5+QUUFBRht2l4vGXEYjGWlpbk/vToh4eH0mGgsRmL1Y7b7RFG3Hg8N8jOzqGtrV0AQ11YrRpFRU40zU6uKEh3WVrqZWVlRZTyT7as7/Ds7EwCGxr8GI0mystvi7uqNGEwGGltfS9K6QhiNlnIs+swm4iqSWBxsUvuTVcqlSKRSEjoFTCAwWjGK1Lk5TmEUy/ZZssVsOtzD+Vlxdy7WUGhgDjFOByF4vVb8rfRdXl5KcvRT12NjU3y0Yo7d+W3LpcbswC2tX/gP9KBvaMwpvspAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Tencent Cloud Monitor APP 结构图"
+        title=""
+        src="/blog/static/b66a38b49c8271401f463325d631118c/b9e4f/grafana_app.png"
+        srcset="/blog/static/b66a38b49c8271401f463325d631118c/cf440/grafana_app.png 148w,
+/blog/static/b66a38b49c8271401f463325d631118c/d2d38/grafana_app.png 295w,
+/blog/static/b66a38b49c8271401f463325d631118c/b9e4f/grafana_app.png 590w,
+/blog/static/b66a38b49c8271401f463325d631118c/f9b6a/grafana_app.png 885w,
+/blog/static/b66a38b49c8271401f463325d631118c/2d849/grafana_app.png 1180w,
+/blog/static/b66a38b49c8271401f463325d631118c/bbefa/grafana_app.png 1770w,
+/blog/static/b66a38b49c8271401f463325d631118c/87727/grafana_app.png 3164w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+      </p>
+<p>在整个应用开发中最为重要的是 Datasource Plugin 模块的开发，下面我们以该模块为例进行详细介绍。</p>
+<h3>Datasource Plugin 的开发</h3>
+<p>Datasource Plugin 中有3个必须文件：<code>Datasource</code>、 <code>QueryCtrl</code> 和 <code>ConfigCtrl</code>；<br>
+<a
+    class="gatsby-resp-image-link"
+    href="/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/dd1cd/datasource.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 34.306569343065696%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABEElEQVQoz52Ry1LCQBBF8///5AItN2oVEhF5JBADeZFkQgbzmMBwTKLsiAu76tZdTHfXndPG5XLhlv6q81mjtUYpRV0rmqahqut+zhga2gQ5H07CciuYrveYVsibHeGnJZO5y8t0zZNp8fD8zt3jGHPhUFQKIz02eGmFL6re3bgklopU1oRZSXSoCEVJIIreZXkmTHK8SODvM5xdhOV4bIOYJJMY00/JvekzmniMzB/NXIluf70JJaud6NUlXbgpk1VIofQgDkOWJ+JckchOTZukJi9OHL4UTiRx2qW2f8D2MqxdRpAWnFqGHS99lf7xQYZdOtvPmbUM57+pXlcB42WIOKq+Z+hwxn+ufH2/1fcNrcEZyUVpXm0AAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Datasource Plugin 结构图"
+        title=""
+        src="/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/b9e4f/datasource.png"
+        srcset="/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/cf440/datasource.png 148w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/d2d38/datasource.png 295w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/b9e4f/datasource.png 590w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/f9b6a/datasource.png 885w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/2d849/datasource.png 1180w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/bbefa/datasource.png 1770w,
+/blog/static/a39b8d7b8ca9015d671699d8f80a30d4/dd1cd/datasource.png 2740w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<h3>Datasource</h3>
+<p>Datasource 类作为数据入口，主要负责与数据源进行通信。
+针对 Tencent Cloud Monitor App 中不同的产品，都必须有一个对应 Datasource 实现类。因此我们定义了一个 Datasource 类的接口协议，每个产品的 Datasource 类都必须遵循这个接口协议：  </p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">interface</span> <span class="token class-name">DatasourceInterface</span> <span class="token punctuation">{</span>
+  instanceSettings<span class="token punctuation">:</span> any<span class="token punctuation">;</span>
+  backendSrv<span class="token punctuation">:</span> any<span class="token punctuation">;</span>
+  templateSrv<span class="token punctuation">:</span> any<span class="token punctuation">;</span>
+  <span class="token function">query</span><span class="token punctuation">(</span>options<span class="token punctuation">:</span> any<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">testDatasource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">metricFindQuery</span><span class="token punctuation">(</span>query<span class="token punctuation">:</span> any<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">getRegions</span><span class="token punctuation">(</span>service<span class="token punctuation">:</span> string<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">getMetrics</span><span class="token punctuation">(</span>service<span class="token punctuation">:</span> string<span class="token punctuation">,</span> region<span class="token punctuation">:</span> string<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">getInstances</span><span class="token punctuation">(</span>service<span class="token punctuation">:</span> string<span class="token punctuation">,</span> region<span class="token punctuation">:</span> string<span class="token punctuation">,</span> params<span class="token punctuation">:</span> any<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  getZones<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter">service<span class="token punctuation">:</span> string<span class="token punctuation">,</span> region<span class="token punctuation">:</span> string</span><span class="token punctuation">)</span> <span class="token operator">=></span> any<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>备注：  </p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// Datasource 类如果要实现以下功能函数，则必须遵循 Grafana 命名协议约定，所以 Datasource 类的接口协议也是按照该要求进行设计。</span>
+<span class="token function">query</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>             <span class="token comment">// Required, used by panels to get data</span>
+<span class="token function">testDatasource</span><span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token comment">// Required, used by datasource configuration page to make sure the connection is working</span>
+<span class="token function">annotationQuery</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>   <span class="token comment">// used by dashboards to get annotations</span>
+<span class="token function">metricFindQuery</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>   <span class="token comment">// used by query editor to get metric suggestions.</span></code></pre></div>
+<p>Datasource 类的主要代码：  </p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">/* Datasource Plugin 中的 datasource 类 */</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Datasources<span class="token punctuation">,</span> <span class="token constant">SERVICES</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./tc_monitor'</span><span class="token punctuation">;</span>   <span class="token comment">// Datasources 是每个云产品对应的 Datasource 实现类组成的对象</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TCMonitorDatasource</span> <span class="token keyword">implements</span> <span class="token class-name">DatasourceInterface</span> <span class="token punctuation">{</span>
+  instanceSettings<span class="token punctuation">:</span> any<span class="token punctuation">;</span>
+  backendSrv<span class="token punctuation">:</span> any<span class="token punctuation">;</span>
+  templateSrv<span class="token punctuation">:</span> any<span class="token punctuation">;</span>
+
+  <span class="token comment">/** @ngInject */</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">instanceSettings<span class="token punctuation">,</span> backendSrv<span class="token punctuation">,</span> templateSrv</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>instanceSettings <span class="token operator">=</span> instanceSettings<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>backendSrv <span class="token operator">=</span> backendSrv<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>templateSrv <span class="token operator">=</span> templateSrv<span class="token punctuation">;</span>
+    _<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>Datasources<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">_class<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>                   <span class="token comment">// 自动实例化每个云产品的 Datasource 类</span>
+      <span class="token keyword">this</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">_class</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>instanceSettings<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>backendSrv<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>templateSrv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">testDatasource</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>                 <span class="token comment">// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 testDatasource()</span>
+  <span class="token function">query</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>                   <span class="token comment">// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 query()</span>
+  <span class="token function">metricFindQuery</span><span class="token punctuation">(</span><span class="token parameter">query</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>           <span class="token comment">// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 getRegions()</span>
+  <span class="token function">getRegions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>                     <span class="token comment">// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 getMetrics()</span>
+  <span class="token function">getMetrics</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>                     <span class="token comment">// 根据选中的云产品去调用每个云产品 Datasource 类中对应的 getZones()</span>
+  <span class="token function">getInstances</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">getZones</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/*CVM 产品中的 datasource 模块*/</span> 
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">CVMDatasource</span> <span class="token keyword">implements</span> <span class="token class-name">DatasourceInterface</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">testDatasource</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">query</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">metricFindQuery</span><span class="token punctuation">(</span><span class="token parameter">query</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">getRegions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">getMetrics</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">getInstances</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token function">getZones</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>在新增产品时只需在 <code>tc_monitor</code> 目录中增加对应子目录实现各自的 <code>datasource.ts</code> 类（继承<code>DatasourceInterface</code> 协议），再在<code>tc_monitor</code> 目录的 index.tx 文件中通过 Datasources 配置该类入口。
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/c1674ccab4e6d1403d1d5d400737a451/ace41/grafana_datasource.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 62.225097024579554%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAABMElEQVQoz6WTa6uCQBCG/f+/KgIp+yCKppKggpJWXsASb+XEO7CyeTwfTmdg2GV25tm57CokyTRNvFZVRVEU0WazIU3TyDAM2m63dL1e6fF4fPguRVkDpmlKnufR+XyeAZDn80ld1/0dmGUZ+b7/I5uvgcgwCALK83wG/At4uVy4h0VRUNu23wHhIGeIkuM4pr7vfwWuQRX5UDhgGKfTiacqy+v1mi+QY2SwsnaQJAm5rss9HMeRIcMwcPlN09CyKlkZiJuFAYH3+50DUR6A8h5w7OEnEkC8YCjLktYEvVsODzZxwUcPwzCkw+FAu92O9Xg88nQRYNs22/BbdF0nx3Hmt2lZFv+e/X7P56ZpkqqqpNxuN4LiqWBF3+q65pIwFKHCT/QQe9jxTRFbliX3/Q06faEpv6dkBwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Tencent Cloud Monitor App 中 Datasource Plugin 的结构图"
+        title=""
+        src="/blog/static/c1674ccab4e6d1403d1d5d400737a451/b9e4f/grafana_datasource.png"
+        srcset="/blog/static/c1674ccab4e6d1403d1d5d400737a451/cf440/grafana_datasource.png 148w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/d2d38/grafana_datasource.png 295w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/b9e4f/grafana_datasource.png 590w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/f9b6a/grafana_datasource.png 885w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/2d849/grafana_datasource.png 1180w,
+/blog/static/c1674ccab4e6d1403d1d5d400737a451/ace41/grafana_datasource.png 1546w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<h3>QueryCtrl</h3>
+<p>当用户在 Dashboard 页面对 Panel 进行编辑时，QueryCtrl 类将被实例化并作为 Angular 控制器，并根据类中的 <code>templateUrl</code> 去加载对应的 View 视图，以图形化的界面提供接口数据查询。该类必须继承自 <strong>grafana/app/plugins/sdk</strong>。具体页面展示以及主要代码逻辑如下：
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/0478f/panel_query.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 35.04842615012107%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA2UlEQVQoz41Ry47CMAzMFUoTaJ5uAt3SrIp6gP//utk4IBYhIXoYjW1ZM36IkSy0tpDqAG0crPVQJd5ud1+x2TRoW4W+j4jxCOc8xPWSsdceFAeYIshiXWeqyRp0D+ZBmMU8L9B0RF5uaHeyCjoXagMbmMIcuwe/47XO/WI6TzhYwjDN8J6eCKFH/r1gSAmBayUPX8CDCCkVpNzXwrJccc4ziBJOpxHjmBH7VPM14EFE07RPQRZLRFDFxJj/NeyHdd9Rb8jfYkFWH36mKsxPubvG+53KKmvA5n+TS7AOOwRqjQAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Tencent Cloud Monitor App 中 Panel 面板的数据查询页面"
+        title=""
+        src="/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/b9e4f/panel_query.png"
+        srcset="/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/cf440/panel_query.png 148w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/d2d38/panel_query.png 295w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/b9e4f/panel_query.png 590w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/f9b6a/panel_query.png 885w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/2d849/panel_query.png 1180w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/bbefa/panel_query.png 1770w,
+/blog/static/a1e1e8882fa39cf3ebf9742e06a11e44/0478f/panel_query.png 3304w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> QueryCtrl <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'grafana/app/plugins/sdk'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TCMonitorDatasourceQueryCtrl</span> <span class="token keyword">extends</span> <span class="token class-name">QueryCtrl</span> <span class="token punctuation">{</span>
+  <span class="token keyword">static</span> templateUrl <span class="token operator">=</span> <span class="token string">'datasource/partials/query.editor.html'</span><span class="token punctuation">;</span>
+  datasource<span class="token punctuation">:</span> any<span class="token punctuation">;</span>                  <span class="token comment">// 对应 datasource.ts 实例的对象</span>
+  panelCtrl<span class="token punctuation">:</span> any<span class="token punctuation">;</span>                   <span class="token comment">// 对应 Panel 的实例对象</span>
+  target<span class="token punctuation">:</span> <span class="token punctuation">{</span>                         <span class="token comment">// 具体的查询条件信息保存</span>
+    refId<span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+    namespace<span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+    service<span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+    showInstanceDetails<span class="token punctuation">:</span> boolean<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  defaults <span class="token operator">=</span> <span class="token punctuation">{</span>                      <span class="token comment">// 初始化值</span>
+    namespace<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    service<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    showInstanceDetails<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span>InitServiceState<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  lastQuery<span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+  lastQueryError<span class="token operator">?</span><span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+
+  <span class="token comment">/** @ngInject */</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">$scope<span class="token punctuation">,</span> $injector<span class="token punctuation">,</span> <span class="token keyword">private</span> templateSrv</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>$scope<span class="token punctuation">,</span> $injector<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _<span class="token punctuation">.</span><span class="token function">defaultsDeep</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>defaults<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>panelCtrl<span class="token punctuation">.</span>events<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data-received'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">onDataReceived</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">,</span> $scope<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// Panel 实例的数据接收处理函数</span>
+  <span class="token function">onDataReceived</span><span class="token punctuation">(</span><span class="token parameter">dataList</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>lastQueryError <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>lastQuery <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> anySeriesFromQuery<span class="token punctuation">:</span> any <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>dataList<span class="token punctuation">,</span> <span class="token punctuation">{</span> refId<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span>refId <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>anySeriesFromQuery<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>lastQuery <span class="token operator">=</span> anySeriesFromQuery<span class="token punctuation">.</span>query<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// Panel 数据查询失败的调用函数</span>
+  <span class="token function">onDataError</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleQueryCtrlError</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">handleQueryCtrlError</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token comment">// 省略其它详细代码</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>对应视图 View 中的部分代码如下，<code>&#x3C;query-editor-row query-ctrl="ctrl">&#x3C;/query-editor-row></code> 标签的内容会加入到Add Query模板中：</p>
+<div class="gatsby-highlight" data-language="html"><pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>query-editor-row</span> <span class="token attr-name">query-ctrl</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>generic-datasource-query-row<span class="token punctuation">"</span></span> <span class="token attr-name">has-text-edit-mode</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gf-form-inline<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gf-form<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gf-form-label query-keyword width-9<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Namespace<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gf-form-select-wrapper gf-form-select-wrapper--caret-indent<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gf-form-input min-width-12<span class="token punctuation">"</span></span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.target.namespace<span class="token punctuation">"</span></span> <span class="token attr-name">ng-options</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>f as f for f in ctrl.namespaces<span class="token punctuation">"</span></span>
+          <span class="token attr-name">ng-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.onNamespaceChange()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token comment">&lt;!-- 省略更多详情 --></span>
+
+  <span class="token comment">&lt;!-- 新增不同的云产品，需要在该处增加新产品独有的配置页面 --></span>
+  <span class="token comment">&lt;!-- CVM --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cvm-query</span>
+    <span class="token attr-name">ng-if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.target.service==='cvm'<span class="token punctuation">"</span></span>
+    <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.target.cvm<span class="token punctuation">"</span></span>
+    <span class="token attr-name">show-detail</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.checkShowDetail('instance')<span class="token punctuation">"</span></span>
+    <span class="token attr-name">datasource</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.datasource<span class="token punctuation">"</span></span>
+    <span class="token attr-name">on-change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.onInstanceQueryChange()<span class="token punctuation">"</span></span>
+    <span class="token attr-name">region</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.replace(ctrl.target.cvm.region)<span class="token punctuation">"</span></span>
+  <span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>cvm-query</span><span class="token punctuation">></span></span>
+
+  <span class="token comment">&lt;!-- Global error message --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gf-form<span class="token punctuation">"</span></span> <span class="token attr-name">ng-show</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ctrl.lastQueryError<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pre</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gf-form-pre alert alert-error<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>{{ctrl.lastQueryError}}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pre</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>query-editor-row</span><span class="token punctuation">></span></span></code></pre></div>
+<p> QueryCtrl 类是查询面板的入口，其中 <code>Namespace</code>、<code>Region</code>、<code>MetricName</code>、 <code>Period</code>、 <code>Insatnce</code> 查询条件是腾讯云产品共有的，其业务逻辑实现在 QueryCtrl 类中。对于自定义业务，则可在自定义QueryCtrl 类中实现单独的 Angular 组件。以上面图片显示的面板为例，其中 ShowDetail 控制获取特定业务的实例列表数据，因此需抽象到单独的 Angular 组件中。新增产品则需要在 <code>tc_monitor</code> 目录实现各自的 <code>query.ts</code> 类，并在 index.tx 文件中通过 <code>import</code> 注册该组件，则对应在 <code>query.editor.html</code> 中引入产品实现的组件即可。
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/120ec90f84f732f76dbd3074fbd69b60/f0f0d/grafana_query.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 39.961265332472564%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsSAAALEgHS3X78AAABu0lEQVQoz31SW0tiURTeDzYSYjf1aOccO9lliJqcYWimt0T6c2W9VhhFETXVi/Va782beR8dERW8oII3FLz7dfaCrF5asPj2Zn372+vbezGoMRwOOaDT6aBcLqNQKKBYLCKbzSKVSqHZbKLRaBDn4fERku0r5m1LMJtnIUlWWK0Kre32H2Bc7FWwXq/D6/UiFoshnU6jUqmgVquNcDAY4O7uHtoJI8Z1E2CMQTOmhVY7TihLMhgn8ex2u3QoHA4jHo8jmUyOknfd6/Xo4kQigcMjN05OTuF2H+Pg4JDw7PwC15eXYHgXXDiTyaBUKpHlfD5PWa1W8d7JZ8H+RaOIRmMIhcLw+/14evqL52cfifDo9/uEuVxOrQcQiUQQCASJEwyG4PP51Sf6Tzzugs0pNoiiTA87q6Ki7vX6Sdzc3JJQq9Ui3N3dgyQrWFhYJj7n8g+ZnJqB07k9cshEiwiTyUIFo1GA0WSGRvMFV1d/Pgju7LggCCKU+UUYDCbimgULdDo9trYcb4IbPzfw+9cmvq/bsbqyim9r67DKc/B4PERqt9uELtc+REmBoI7H9LSBxsSiNsPdOBzOkeALpTrOQ7JO+MAAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Tencent Cloud Monitor App 中 Datasource Plugin 的 QueryCtrl 结构图"
+        title=""
+        src="/blog/static/120ec90f84f732f76dbd3074fbd69b60/b9e4f/grafana_query.png"
+        srcset="/blog/static/120ec90f84f732f76dbd3074fbd69b60/cf440/grafana_query.png 148w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/d2d38/grafana_query.png 295w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/b9e4f/grafana_query.png 590w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/f9b6a/grafana_query.png 885w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/2d849/grafana_query.png 1180w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/bbefa/grafana_query.png 1770w,
+/blog/static/120ec90f84f732f76dbd3074fbd69b60/f0f0d/grafana_query.png 3098w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<h3>ConfigCtrl 类</h3>
+<p>ConfigCtrl 类是添加数据源的面板进行控制。
+当用户对该 App Plugin 的数据源进行配置时，该类会被实例化为 Angular 的控制器，并根据类中的 <code>templateUrl</code> 去加载对应的 View 视图，用于呈现数据源自定义配置的面板。具体页面展示示例如下：
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/c5371a02dd8247fa0bd1676d6863d678/91670/datasource_config.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 85.38461538461539%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAACdklEQVQ4y5WUyXLTQBCGdY2teNEujSzNyLI22/EWx45DcUgRqEA4cOMtOENx5XV4xZ/ucZyYEChy+KtlS/3N34tkFKMR1OIa8dkbzGcLbDaXWK3WWC7PUddjjMdTTCZTNM2ExL/3sSwrFEWJ4TDXsiwb7bYJY0Q3gs9f0P/0DZtX17j7cIebm3e4vX2P7XaH9foCu92VBh2DGVbXDaqq1te27eyBVVWRsxqLcYVSKQwGkpRCiAHiONExCCJ4nq+T2EmvZ6Hb7eH0tAPTPEWr1dbRNAmo1BCZTDFtashUIk2VBjIsimKS0EBWGAoCB3AcD7ZDB3B8cojBDyZphkgQgNwcnLEOYI6RiCnZ1fdTmSEJA0R+QAeE8P1HEVBgMp1jkCitAyBJJCQl8rXKhhrUaplQKsd0tkIdu0g9G7ZLUNeHey+Dy2AIA7h8hliWg37f1pFd8bVtubpcTtIlE8ih6/1/gY4sgx1st1eYzZZaDU1TO0tS3TdO5gP5YIYxXB9AvTu4OsA0kB+83L3GfLGGiCW5cpHRXhVFpcu0KJGB3B8GcdknJ20aQP95oO9HKCvaq7JBGA30n1wmix/maJodWpEuOp3e/TT7uh3PAtlFnhfIslwvaBSnVKb/0C+OhwkeJx7fP4YaXM7qfENbP0E9nqGRMULHpob/nvicnsL2PaTlXa4uINUIMq9xnnqQLk34yOW/9IfDgHqYZwVEMNBDkcKH77p6JY4Tnjr5mwwvoH1KqT8ZvWIixMgTUL546Nn/gh5Lnkpsvt9i/eMjNm/P8HN+ja/lAmcL2kn6fPGUXwRkh74iRxkNQ0So3RBDej/1B4FcvtThLyPmxEia9bgoAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Tencent Cloud Monitor App 的数据源配置页面"
+        title=""
+        src="/blog/static/c5371a02dd8247fa0bd1676d6863d678/b9e4f/datasource_config.png"
+        srcset="/blog/static/c5371a02dd8247fa0bd1676d6863d678/cf440/datasource_config.png 148w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/d2d38/datasource_config.png 295w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/b9e4f/datasource_config.png 590w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/f9b6a/datasource_config.png 885w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/2d849/datasource_config.png 1180w,
+/blog/static/c5371a02dd8247fa0bd1676d6863d678/91670/datasource_config.png 1300w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+      </p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">/* 文件路径为 /src/datasource/config.ctrl.ts */</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">SERVICES</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./tc_monitor'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TCMonitorDatasourceConfigCtrl</span> <span class="token punctuation">{</span>
+  <span class="token keyword">static</span> templateUrl <span class="token operator">=</span> <span class="token string">'datasource/partials/config.html'</span><span class="token punctuation">;</span>   <span class="token comment">// 指定该Controller 对应 View 文件，且实际路径为 /src/datasource/partials/config.html</span>
+  current<span class="token punctuation">:</span> any<span class="token punctuation">;</span>
+  <span class="token comment">/** @ngInject */</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">$scope</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>current<span class="token punctuation">.</span>jsonData<span class="token punctuation">.</span>services <span class="token operator">=</span> <span class="token constant">SERVICES</span><span class="token punctuation">;</span>
+    _<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>current<span class="token punctuation">.</span>jsonData<span class="token punctuation">.</span>services<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">service</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>current<span class="token punctuation">.</span>jsonData<span class="token punctuation">[</span>service<span class="token punctuation">.</span>service<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<h2>结束</h2>
+<p>Tencent Cloud Monitor App 已经在 github.com 上开源了，欢迎大家多提 issues，顺便给我们 Star 鼓励一下。<br>
+项目地址：TencentCloud/tencentcloud-monitor-grafana-app (<a href="https://github.com/TencentCloud/tencentcloud-monitor-grafana-app">https://github.com/TencentCloud/tencentcloud-monitor-grafana-app</a>)</p></div><hr style="margin-bottom:1.75rem"/><div style="display:flex;margin-bottom:4.375rem"><div class=" gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:50px;height:50px;margin-right:0.875rem;margin-bottom:0;min-width:50px;border-radius:100%"><img src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIEBQP/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/2gAMAwEAAhADEAAAAdajo8JbgZRCQP/EABsQAAMAAgMAAAAAAAAAAAAAAAECAwAQBBIT/9oACAEBAAEFAr18Ujy+z5RQ2BQx0ABr/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAwEBPwEf/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPwEf/8QAHRAAAQQCAwAAAAAAAAAAAAAAAQACEBESITFBYf/aAAgBAQAGPwLJBrhzAvpDyp1H/8QAGhABAAIDAQAAAAAAAAAAAAAAARARACFhMf/aAAgBAQABPyEbRatBimZahIEXXNfJs3yfEVH/2gAMAwEAAgADAAAAEFP/AP8A/8QAFxEBAAMAAAAAAAAAAAAAAAAAEQEgIf/aAAgBAwEBPxCA2n//xAAWEQEBAQAAAAAAAAAAAAAAAAARASD/2gAIAQIBAT8Qq4//xAAeEAEAAQQCAwAAAAAAAAAAAAABEQAQQWEhMVFxof/aAAgBAQABPxDJTiiXeqLtTH04E8Wha5Jk0j8aw6r3UlCe8ubzMErf/9k=" alt="susiezhao" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:0.5s;border-radius:50%"/><noscript><picture><img width="50" height="50" srcset="/blog/static/dac84ff0eaf40768c2af3bdf03666fd3/c15d6/profile-pic.jpg 1x,
+/blog/static/dac84ff0eaf40768c2af3bdf03666fd3/43c20/profile-pic.jpg 1.5x,
+/blog/static/dac84ff0eaf40768c2af3bdf03666fd3/da97e/profile-pic.jpg 2x,
+/blog/static/dac84ff0eaf40768c2af3bdf03666fd3/3e75a/profile-pic.jpg 3x" src="/blog/static/dac84ff0eaf40768c2af3bdf03666fd3/c15d6/profile-pic.jpg" alt="susiezhao" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div><p>Written by <strong>susiezhao</strong>; contact from <a href="mailto:nora_susie@qq.com">nora_susie@qq.com</a></p></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/blog/javascript/object_oriented/">← <!-- -->JavaScript 基于原型的面向对象设计</a></li><li></li></ul></main><footer>© <!-- -->2019<!-- -->, Built with<!-- --> <a href="https://www.gatsbyjs.org">Gatsby</a></footer></div></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'undefined', 'auto', {});
+      
+      
+      
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-blog-post-js","jsonName":"grafana-app-develop-b56","path":"/grafana/app_develop/"};window.dataPath="160/path---grafana-app-develop-b-56-248-wXStRTkiKoCDXEDchWVkQkPHasI";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-c2e091b31346f57f7706.js"],"component---node-modules-gatsby-plugin-offline-app-shell-js":["/component---node-modules-gatsby-plugin-offline-app-shell-js-58f67562ab44a02057bd.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-0ea042526253178bf452.js"],"component---src-pages-404-js":["/component---src-pages-404-js-90ee6e1a721b27bce225.js"],"component---src-pages-index-js":["/component---src-pages-index-js-dbb097ad5bb8123aeab4.js"],"pages-manifest":["/pages-manifest-f498c90b6cf0871114fa.js"]};/*]]>*/</script><script src="/blog/webpack-runtime-f47bf87ccf8a7822760e.js" async=""></script><script src="/blog/styles-05d9f0bfc57d3d2a2ff4.js" async=""></script><script src="/blog/app-c2e091b31346f57f7706.js" async=""></script><script src="/blog/0-167616ab40b3f40665e8.js" async=""></script><script src="/blog/component---src-templates-blog-post-js-0ea042526253178bf452.js" async=""></script></body></html>
