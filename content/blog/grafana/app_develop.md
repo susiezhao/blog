@@ -1,7 +1,7 @@
 ---
-title: Grafana App 插件开发
+title: 基于腾讯云云监控 API 的 Grafana App 插件开发
 date: "2019-05-15"
-description: Grafana App 插件开发
+description: 基于腾讯云云监控 API 的 Grafana App 插件开发
 ---
 
 # Tencent Cloud Monitor App 
@@ -178,7 +178,7 @@ export {
 
 ## Tencent Cloud Monitor App 开发实践
 基于腾讯云云监控 API —— Tencent Cloud Monitor App 完整结构图如下所示：  
-![Tencent Cloud Monitor APP 结构图](./picture/grafana_app.png)  
+![Tencent Cloud Monitor App 结构图](./picture/grafana_app.png)  
 
 在整个应用开发中最为重要的是 Datasource Plugin 模块的开发，下面我们以该模块为例进行详细介绍。
 
@@ -368,6 +368,10 @@ export class TCMonitorDatasourceConfigCtrl {
 
 ## 结束
 Tencent Cloud Monitor App 已经在 github.com 上开源了，欢迎大家多提 issues，顺便给我们 Star 鼓励一下。  
-项目地址：TencentCloud/tencentcloud-monitor-grafana-app (https://github.com/TencentCloud/tencentcloud-monitor-grafana-app)
+项目地址：TencentCloud/tencentcloud-monitor-grafana-app (https://github.com/TencentCloud/tencentcloud-monitor-grafana-app)  
+
+项目代码开发成员：
+- susiezhao(https://github.com/susiezhao)
+- taoran34(https://github.com/taoran34)
 
 
