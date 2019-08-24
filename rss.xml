@@ -1,4 +1,163 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[A blog to remember everything.]]></description><link>https://github.com/susiezhao/blog</link><generator>RSS for Node</generator><lastBuildDate>Fri, 17 May 2019 13:06:46 GMT</lastBuildDate><item><title><![CDATA[基于腾讯云监控 API 的 Grafana App 插件开发]]></title><description><![CDATA[Tencent Cloud Monitor App Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb…]]></description><link>https://github.com/susiezhao/blog/grafana/app_develop/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/grafana/app_develop/</guid><pubDate>Fri, 17 May 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Tencent Cloud Monitor App&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[A blog to remember everything.]]></description><link>https://github.com/susiezhao/blog</link><generator>RSS for Node</generator><lastBuildDate>Sat, 24 Aug 2019 08:05:34 GMT</lastBuildDate><item><title><![CDATA[浏览器的缓存]]></title><description><![CDATA[…]]></description><link>https://github.com/susiezhao/blog/browser/brower_cache/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/browser/brower_cache/</guid><pubDate>Sat, 24 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;缓存策略&lt;/h2&gt;
+&lt;p&gt;浏览器对所有请求的资源有一套完整的缓存策略，其主要分为三个部分，缓存存储策略，缓存失效策略以及缓存对比策略。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存存储策略：发生在收到请求响应之后，用于决定是否对某个资源进行相应的缓存操作，以及能被哪些客户端存储。&lt;/li&gt;
+&lt;li&gt;缓存失效策略：发生在请求发送到服务器之前。用于决定是从浏览器缓存中获取资源还是从服务器请求资源。涉及的缓存方法是 &lt;strong&gt;强制缓存&lt;/strong&gt; 和 &lt;strong&gt;启发式缓存&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;缓存对比策略：一定会发送请求到服务器，但是资源的获取是根据服务器的返回决定从浏览器缓存获取还是从服务器获取。涉及的缓存方法是 &lt;strong&gt;协商缓存&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;注意：缓存失效策略和缓存对比策略的启用与否必须是建立在该资源存在缓存存储策略的基础上。&lt;/strong&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/2fbed026c18a268eba36b0e31c1f6df6/35c67/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 89.60000000000001%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsSAAALEgHS3X78AAAB4klEQVQ4y32U54oCUQyF5/1fS1RQ/GNFbNh77zXyBY7cve5uINyZtHtykplktVpZqVSyXC5nvV7PXq+XLZdLq9VqVigUrNFouO12u9n9frf1em3lctmKxaJ1u90fPjQ5nU5eYDwe2+Fw8ABObJPJxDabjUkej4cdj0cDxGw2s91uZ6E8n09LqC6h2PV69ZtCwY4IReyT3wtut1tvr1qtegsgJokgAsIE7ACQTfbwTECkNngmgaJhGwoWV3+hw5+cz2drtVpWqVScR4rDH1qv190+HA5tv98b3cApg8lms675fN5t+Mh1hAxhPp/7CfEoAlKCsWsoICSHgbEVo9HI4/Bhdw47nY41m00PYHrcpAFQjC5ohxMfyTyjEmIvl4sltAI6boRHlBvhBOVZXJGA/ibEekFxBrrFYuFG0KDsGYjFHz4Qsw2DwcDb7ff7fhL7QYiz3W47+VyAg0tYJZThsFrwSSK2dDptqVTKMpmMfzXEQ8FnsSlCW+GuiRsNScgl8Ufhe6i9EjeaYpikGF0mIUd7+vXpCSFoYhQqqLX5tyBThBfWBh60d6DUjsIrhTnloxjvouZTECIZzHQ69cIEkaBvOVQVCm1fP4f47xG3HPvi+K/fV7h32nZQawCharFje6hvOOlx9gifKgkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;缓存策略流程图&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/2fbed026c18a268eba36b0e31c1f6df6/b9e4f/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB.png&quot;
+        srcset=&quot;/blog/static/2fbed026c18a268eba36b0e31c1f6df6/cf440/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB.png 148w,
+/blog/static/2fbed026c18a268eba36b0e31c1f6df6/d2d38/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB.png 295w,
+/blog/static/2fbed026c18a268eba36b0e31c1f6df6/b9e4f/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB.png 590w,
+/blog/static/2fbed026c18a268eba36b0e31c1f6df6/35c67/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB.png 750w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2&gt;HTTP 首部字段&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;首部字段&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;值&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Expires&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;Expires: Sat, 24 Aug 2019 04:43:11 GMT&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;指定缓存过期的时间，与缓存储存策略和缓存过期策略相关，指定缓存过期的时间，绝对时间，存在服务器和客户端时期不一致进而导致缓存的不正确&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Cache-Control&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;常用的值由 &lt;code&gt;Cache-Control: max-age=60,public,private,no-cache,no-store,must-revalidate&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;该首部字段涉及了缓存存储策略，缓存过期策略以及缓存对比策略，比较复杂，下文单独说明&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Last-Modified&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;Last-Modified: Sat, 24 Aug 2019 04:43:11 GMT&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;响应首部字段，表示资源的最后修改时间&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;If-Modified-Since&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;If-Modified-Since: Sat, 24 Aug 2019 04:43:11 GMT&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;请求的首部字段，其值由上一次响应的 Last-Modified 决定，如果资源在指定时间之后未发生修改，服务器返回 &lt;code&gt;304 Not Modified&lt;/code&gt;，否则返回新的资源并更新浏览器缓存&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;If-Unmodified-Since&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;If-Unmodified-Since: Sat, 24 Aug 2019 04:43:11 GMT&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;请求的首部字段，其值由上一次响应的 Last-Modified 决定，如果资源在指定时间之后发生修改，服务器返回 &lt;code&gt;412 Precondition Failed&lt;/code&gt;，否则返回新的资源并更新浏览器缓存&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Etag&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;Etag: xxxxxx&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;请求资源的唯一标识字符串&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;If-No-Match&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;If-No-Match: xxxxxx&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;缓存协商校验字段，请求资源的唯一标识字符串，为上次请求收到的ETag的值，如值没有发生变化，服务器返回 &lt;code&gt;304 Not Modified&lt;/code&gt;，否则返回新的资源并更新浏览器缓存&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;If-Match&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;&lt;code&gt;If-Match: xxxxxx&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;缓存协商校验字段，请求资源的唯一标识字符串，为上次请求收到的ETag的值，如果值未发生变化，返回新的资源并更新浏览器缓存， 否则服务器返回 &lt;code&gt;412 Precondition Failed&lt;/code&gt;，&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;Cache-Control 首部字段&lt;/h3&gt;
+&lt;p&gt;Cache-Control 用于指定资源的缓存策略，可以同时在请求头和响应头中设置。其同时涉及缓存存储，缓存过期以及缓存对比这三个策略，其取值如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;max-age=xx&lt;/code&gt;： 设置缓存过期时间，是一个相对时间，单位为秒， 即在xx秒后缓存失效。此时采用强缓存方法，当 &lt;code&gt;max-age=0&lt;/code&gt; 的时候采用协商缓存方法。当 &lt;code&gt;Expires: xxxxxxx&lt;/code&gt; 和 &lt;code&gt;Cache-Control: max-age=xxx&lt;/code&gt; 同时出现时， Cache-Control 的优先级更高；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;public&lt;/code&gt;：该资源可以被客户端，代理服务器缓存，即缓存资源是所有人都可见的；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;private&lt;/code&gt;：该资源只能被客户端缓存，代理服务器不允许缓存，即缓存资源只针对特定用户可见；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;no-cache&lt;/code&gt;： 资源可以被缓存，但是每次请求时都必须向服务器发起协商缓存；其等价于 &lt;code&gt;max-age=0;must-revalidate&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;no-store&lt;/code&gt;：该资源不允许被缓存，客户端，代理服务器都不允许缓存，每次都需要从服务器端获取资源；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;must-revalidate&lt;/code&gt;：资源可缓存，浏览器必须向服务器发送请求，验证资源是否还有效存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;缓存方法&lt;/h2&gt;
+&lt;h3&gt;强制缓存&lt;/h3&gt;
+&lt;p&gt;强制缓存：当客户端请求后，会先访问缓存数据库看缓存是否存在。如果存在则直接返回；不存在则请求真的服务器，响应后再写入缓存数据库。&lt;/p&gt;
+&lt;p&gt;与强制缓存相关的 HTTP 首部字段： &lt;code&gt;Expires&lt;/code&gt; 与 &lt;code&gt;Cache-Control&lt;/code&gt;；设置缓存过期的时间， &lt;code&gt;Cache-Control&lt;/code&gt; 的优先级高于 &lt;code&gt;Expires&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;启发式缓存&lt;/h3&gt;
+&lt;p&gt;启发式缓存：当缓存过期时间的字段一个都没有的时候，浏览器下次并不会直接进入协商阶段，而是先进入启发式缓存阶段，你可以通过关闭服务器，刷新页面来观察。它根据响应头中2个时间字段 &lt;code&gt;Date&lt;/code&gt; 和 &lt;code&gt;Last-Modified&lt;/code&gt; 之间的时间差值，取其值的 &lt;strong&gt;10%&lt;/strong&gt; 作为缓存时间周期。也就是说，当存有 &lt;code&gt;Last-Modified&lt;/code&gt; 字段的时候，即使是断网，且强缓存都失效后，也有一定时间是直接读取缓存文件的。&lt;/p&gt;
+&lt;h3&gt;协商缓存&lt;/h3&gt;
+&lt;p&gt;当浏览器对某一个资源没有命中强制缓存时，则会启动协商缓存，即向服务器发送一个请求验证该资源的是否有更新，没有更新则返回 &lt;code&gt;304 Not Modified&lt;/code&gt;，并从浏览器本地缓存数据库获取资源，否则从服务器返回资源，并更新缓存数据库。&lt;/p&gt;
+&lt;p&gt;与协商缓存相关的 HTTP 首部字段：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Last-Modified &amp;#x26; If-Modified-Since&lt;/code&gt;：浏览器第一次请求一个资源的时候，服务器返回的 header 中会加上&lt;code&gt;Last-Modify&lt;/code&gt;，&lt;code&gt;Last-modify&lt;/code&gt; 是一个时间标识该资源的最后修改时间，例如 &lt;code&gt;Last-Modify: Thu,31 Dec 2037 23:59:59 GMT&lt;/code&gt;。当浏览器再次请求该资源时，request 的请求头中会包含 &lt;code&gt;If-Modify-Since&lt;/code&gt;，该值为缓存之前返回的&lt;code&gt;Last-Modify&lt;/code&gt;。服务器收到 &lt;code&gt;If-Modify-Since&lt;/code&gt; 后，根据资源的最后修改时间判断是否命中缓存。如果命中缓存，则返回 &lt;code&gt;304 Not Modified&lt;/code&gt;，并且不会返回资源内容，并且不会返回 &lt;code&gt;Last-Modify&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Etag &amp;#x26; If-No-Match&lt;/code&gt;：&lt;code&gt;Etag &amp;#x26; If-None-Match&lt;/code&gt;返回的是一个校验码。&lt;code&gt;ETag&lt;/code&gt; 可以保证每一个资源是唯一的，资源变化都会导致 &lt;code&gt;ETag&lt;/code&gt; 变化。服务器根据浏览器上送的 &lt;code&gt;If-None-Match&lt;/code&gt; 值来判断是否命中缓存。与 &lt;code&gt;Last-Modified&lt;/code&gt; 不一样的是，当服务器返回 &lt;code&gt;304 Not Modified&lt;/code&gt; 的响应时，由于 &lt;code&gt;ETag&lt;/code&gt; 重新生成过，response header 中还会把这个 &lt;code&gt;ETag&lt;/code&gt; 返回，即使这个 &lt;code&gt;ETag&lt;/code&gt; 跟之前的没有变化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Etag &amp;#x26; If-No-Match&lt;/code&gt; 优先级高于 &lt;code&gt;Last-Modified &amp;#x26; If-Modified-Since&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/19c806c752b427532662ee0fc09c1524/fc43f/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 84.82142857142858%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAACeUlEQVQ4y4VUCZKiQBD0/y/bI9x1YsCDGwQEAbmv5sitbmUXZ8bYjsgoUKu6KjPLDejM84wlDsOAng2wzhccVROKbsNyAwRRimucIb7lAsM4Yp27nM36QzaMiJIMSVbhqNkwHB+Xa0LFboioSNf16Pse0zTjnrLEFwWH8R7zosJOUnDSHai6Ccf1CD4M6wzT8ZCXNU8SeevpOJ4Kjo+Ct6zEj+0Ob9IRb/IJthciLRq8OvOq+ObfLTPGaRLjpHkFaX9AGMX0PqFrWxq3w8D6v2APzPP0VHizvqljI0IivmoHep7ArwmJv/1Jh3RQqFsF8snAz98SRR1eECMrGxJyJP6HO4ddx+imkchmaPpR8LgQXlYNsoohyWvkNYNqB9i+K5AUByfDJScEUM2zcIJJAlZ1g02SFSjrFjcas26Z6Iqr3ZF1Knqvmh4FiVBT115UQtbcv7hEObxrijAp0FIzbT88jzw9xKnbHnnViueiqnEJI9GNdfaRpinyvEBN3TDGiE/2bJu1QiMJMq2MlRM/MXnyoFp4P+rY7mRoho2zFwh/LnhS+SvbVHUNw7ThB6HghhfknOn2hT67Ik7ST7a5xw/G5h3yk9FI7/IBJ1XH/qjA8wOkWY5bmiMj01dNJ+w0c6yMzYX8sHoTGlI9TkvsFQPyURPbcQljJGkhDM9/85Wxv149UjehpKLuReQMFGUlxrcdFxqtIY+GacG0bLiej4w6/7R6H28ZxvsofCzHj/D9l4RvWw4ZO1nFQXOgWT6cS4KIpnm5y0tsyDZF3dEWtKLbphvghint9BVdz/4/8qsvhUBknSDOYXgpmdlHkJToh/Hx17XgkUf4A3ehHeOuxn1SAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;浏览器缓存xmind&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/19c806c752b427532662ee0fc09c1524/b9e4f/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png&quot;
+        srcset=&quot;/blog/static/19c806c752b427532662ee0fc09c1524/cf440/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png 148w,
+/blog/static/19c806c752b427532662ee0fc09c1524/d2d38/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png 295w,
+/blog/static/19c806c752b427532662ee0fc09c1524/b9e4f/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png 590w,
+/blog/static/19c806c752b427532662ee0fc09c1524/f9b6a/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png 885w,
+/blog/static/19c806c752b427532662ee0fc09c1524/2d849/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png 1180w,
+/blog/static/19c806c752b427532662ee0fc09c1524/bbefa/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png 1770w,
+/blog/static/19c806c752b427532662ee0fc09c1524/fc43f/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BD%93%E7%B3%BB%E6%A6%82%E8%A7%88%E5%9B%BE.png 2464w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2&gt;参考文献&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://juejin.im/post/5be4e76f5188250e8601b4a6&quot;&gt;浅谈浏览器缓存机制&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;http://caibaojian.com/http-cache-3.html&quot;&gt;HTTP基于缓存策略三要素分解法&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;http://verymuch.site/2018/10/09/web-browser-cache-strategy/&quot;&gt;浏览器缓存策略之扫盲篇&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/44789005/&quot;&gt;一文读懂前端缓存&lt;/a&gt;  &lt;/p&gt;</content:encoded></item><item><title><![CDATA[基于腾讯云监控 API 的 Grafana App 插件开发]]></title><description><![CDATA[Tencent Cloud Monitor App Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb…]]></description><link>https://github.com/susiezhao/blog/grafana/app_develop/</link><guid isPermaLink="false">https://github.com/susiezhao/blog/grafana/app_develop/</guid><pubDate>Fri, 17 May 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Tencent Cloud Monitor App&lt;/h1&gt;
 &lt;p&gt;Grafana 是一个开源的时序性统计和监控平台，支持例如 elasticsearch、graphite、influxdb 等众多的数据源，并以功能强大的界面编辑器著称，允许您对指标进行查询、可视化展示、设置告警等操作，以及自定义配置仪表盘。 &lt;/p&gt;
 &lt;p&gt;Grafana 已经拥有一个强大的贡献者和插件开发者社区。开发者社区提供了三种类型的插件： &lt;/p&gt;
 &lt;ul&gt;
@@ -71,7 +230,7 @@
 &lt;h3&gt;plugin.json&lt;/h3&gt;
 &lt;p&gt; &lt;code&gt;plugin.json(Required)&lt;/code&gt;: 用于描述插件的相关信息。在 Grafana 服务启动时会扫描所有的插件文件夹并挂载每个插件的 dist 目录，并查找 &lt;code&gt;plugin.json&lt;/code&gt; 文件，根据文件的内容完成插件的自动注册。  &lt;/p&gt;
 &lt;p&gt;在 Tencent Cloud Monitor App 中存在两种类型的 Plugin, 其配置文件如下：
-App Plugin 中配置 &lt;code&gt;plugion.json&lt;/code&gt;：&lt;/p&gt;
+App Plugin 中配置 &lt;code&gt;plugin.json&lt;/code&gt;：&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token property&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;app&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                                          &lt;span class=&quot;token comment&quot;&gt;// 插件的类型： panel | app | datasource&lt;/span&gt;
   &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Tencent Cloud Monitor&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;                        &lt;span class=&quot;token comment&quot;&gt;// 插件名称&lt;/span&gt;
